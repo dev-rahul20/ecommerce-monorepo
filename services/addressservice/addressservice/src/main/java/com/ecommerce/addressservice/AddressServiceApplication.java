@@ -2,14 +2,13 @@ package com.ecommerce.addressservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 
-@SpringBootApplication
-@EntityScan(basePackages = "com.ecommerce.addressservice.entity")
+@SpringBootApplication(exclude = { HibernateJpaAutoConfiguration.class, DataSourceAutoConfiguration.class })
 public class AddressServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AddressServiceApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(AddressServiceApplication.class, args);
+    }
 }

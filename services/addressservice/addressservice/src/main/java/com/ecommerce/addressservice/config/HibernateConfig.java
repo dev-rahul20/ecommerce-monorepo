@@ -1,4 +1,5 @@
 package com.ecommerce.addressservice.config;
+
 import java.util.Properties;
  
 import javax.sql.DataSource;
@@ -27,20 +28,20 @@ public class HibernateConfig {
     @Value("${spring.datasource.username}")
     private String USERNAME;
  
-    @Value("${spring.jpa.properties.hibernate.dialect}")
+    @Value("${hibernate.dialect}")
     private String DIALECT;
  
-    @Value("${spring.jpa.show-sql}")
+    @Value("${hibernate.show_sql}")
     private String SHOW_SQL;
  
-    @Value("${spring.jpa.hibernate.ddl-auto}")
+    @Value("${hibernate.hbm2ddl.auto}")
     private String HBM2DDL_AUTO;
  
-    @Value("${entitymanager.packages-to-Scan}")
+    @Value("${hibernate.packages_to_scan}")
     private String PACKAGES_TO_SCAN;
- 
+
     @Bean
-    public DataSource dataSource() {
+    DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(DRIVER);
         dataSource.setUrl(URL);
@@ -50,7 +51,7 @@ public class HibernateConfig {
     }
  
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
+    LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(PACKAGES_TO_SCAN);
@@ -65,7 +66,7 @@ public class HibernateConfig {
     }
  
     @Bean
-    public HibernateTransactionManager transactionManager() {
+    HibernateTransactionManager transactionManager() {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;

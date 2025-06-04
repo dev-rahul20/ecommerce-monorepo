@@ -2,6 +2,7 @@ package com.ecommerce.addressservice.address.service;
 
 import java.util.List;
 
+import com.ecommerce.addressservice.dto.AddressRequestDto;
 import com.ecommerce.addressservice.entity.Address;
 
 public interface AddressService {
@@ -14,9 +15,9 @@ public interface AddressService {
 	
 	Address getAddressByAddressIdAndUserId(Integer addressId, Integer userId);
 
-	Integer saveAddress(Address address);
+	Integer saveAddress(AddressRequestDto address);
 
-	Integer updateAddress(Address address);
+	Integer updateAddress(AddressRequestDto address);
 
 	Boolean deleteAddress(Integer addressId, Integer userId);
 

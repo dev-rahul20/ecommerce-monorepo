@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.addressservice.address.service.AddressService;
+import com.ecommerce.addressservice.dto.AddressRequestDto;
 import com.ecommerce.addressservice.entity.Address;
 import com.ecommerce.addressservice.util.AddressResponse;
+import com.ecommerce.addressservice.validation.OnCreateValidation;
+import com.ecommerce.addressservice.validation.OnUpdateValidation;
 
 
 @RestController
@@ -37,13 +41,13 @@ public class AddressController {
     }
 
     @PostMapping("/save-address")
-    public AddressResponse saveAddress(@RequestBody Address address) {
+    public AddressResponse saveAddress(@RequestBody @Validated(OnCreateValidation.class) AddressRequestDto address) {
         Integer savedAddressId = service.saveAddress(address);
         return new AddressResponse(true, HttpStatus.CREATED, "Address saved successfully", savedAddressId);
     }
 
     @PostMapping("/update-address")
-    public AddressResponse updateAddress(@RequestBody Address address) {
+    public AddressResponse updateAddress(@RequestBody @Validated(OnUpdateValidation.class) AddressRequestDto address) {
         Integer updatedAddressId = service.updateAddress(address);
         return new AddressResponse(true, HttpStatus.OK, "Address updated successfully", updatedAddressId);
     }
