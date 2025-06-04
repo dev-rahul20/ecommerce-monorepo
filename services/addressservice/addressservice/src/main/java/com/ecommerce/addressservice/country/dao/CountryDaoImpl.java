@@ -4,18 +4,19 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.addressservice.entity.Country;
 
+import lombok.AllArgsConstructor;
 
 
+@AllArgsConstructor
 @Repository
 public class CountryDaoImpl implements CountryDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+	
+    private final SessionFactory sessionFactory;
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();

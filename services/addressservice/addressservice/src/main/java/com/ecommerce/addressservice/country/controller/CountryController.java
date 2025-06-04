@@ -10,14 +10,16 @@ import com.ecommerce.addressservice.country.service.CountryService;
 import com.ecommerce.addressservice.entity.Country;
 import com.ecommerce.addressservice.util.AddressResponse;
 
+import lombok.AllArgsConstructor;
+
 
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("country")
 public class CountryController {
 
-    @Autowired
-    private CountryService service;
+    private final CountryService service;
 
     @GetMapping("/get-country-list")
     public AddressResponse getCountryList() {

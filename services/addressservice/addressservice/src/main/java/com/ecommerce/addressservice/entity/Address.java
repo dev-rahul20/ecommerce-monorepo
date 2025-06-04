@@ -11,11 +11,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
 @Entity
 @Table(name = "txn_adr")
+@Getter
+@Setter
 public class Address {
 
     @Id
@@ -57,98 +61,6 @@ public class Address {
     @UpdateTimestamp
     @Column(name = "last_updated_on")
     private LocalDateTime lastUpdatedOn;
-
-	public Integer getAdrId() {
-		return adrId;
-	}
-
-	public void setAdrId(Integer adrId) {
-		this.adrId = adrId;
-	}
-
-	public String getAdrStreet() {
-		return adrStreet;
-	}
-
-	public void setAdrStreet(String adrStreet) {
-		this.adrStreet = adrStreet;
-	}
-
-	public String getAdrArea() {
-		return adrArea;
-	}
-
-	public void setAdrArea(String adrArea) {
-		this.adrArea = adrArea;
-	}
-
-	public String getAdrLandmark() {
-		return adrLandmark;
-	}
-
-	public void setAdrLandmark(String adrLandmark) {
-		this.adrLandmark = adrLandmark;
-	}
-
-	public Integer getAdrPinno() {
-		return adrPinno;
-	}
-
-	public void setAdrPinno(Integer adrPinno) {
-		this.adrPinno = adrPinno;
-	}
-
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
-	public String getAdrType() {
-		return adrType;
-	}
-
-	public void setAdrType(String adrType) {
-		this.adrType = adrType;
-	}
-
-	public LocalDateTime getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(LocalDateTime createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public LocalDateTime getLastUpdatedOn() {
-		return lastUpdatedOn;
-	}
-
-	public void setLastUpdatedOn(LocalDateTime lastUpdatedOn) {
-		this.lastUpdatedOn = lastUpdatedOn;
-	}
-
-    
-	
-    
     
     
 }

@@ -2,7 +2,6 @@ package com.ecommerce.addressservice.country.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,13 +9,16 @@ import com.ecommerce.addressservice.country.dao.CountryDao;
 import com.ecommerce.addressservice.entity.Country;
 import com.ecommerce.addressservice.exception.CountryNotFoundException;
 
+import lombok.AllArgsConstructor;
+
 
 
 @Service
+@AllArgsConstructor
 public class CountryServiceImpl implements CountryService {
 
-    @Autowired
-    private CountryDao dao;
+
+    private final CountryDao dao;
 
     @Override
     @Transactional(readOnly = true)

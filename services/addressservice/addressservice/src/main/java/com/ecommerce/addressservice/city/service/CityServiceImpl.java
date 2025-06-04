@@ -1,36 +1,40 @@
 package com.ecommerce.addressservice.city.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.addressservice.city.dao.CityDao;
+import com.ecommerce.addressservice.dto.CityResponceDto;
 import com.ecommerce.addressservice.entity.City;
 import com.ecommerce.addressservice.exception.CityNotFoundException;
 
+import lombok.AllArgsConstructor;
 
 
+@AllArgsConstructor
 @Service
 public class CityServiceImpl implements CityService {
 
-    @Autowired
-    private CityDao cityDao;
+
+    private final CityDao cityDao;
 
     @Override
     @Transactional(readOnly = true)
-    public List<City> getCityList() {
+    public List<CityResponceDto> getCityList() {
         return cityDao.getCityList();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public City getCityById(Integer cityId) {
-        City city = cityDao.getCityById(cityId);
-        if (city == null) {
-            throw new CityNotFoundException("State with ID " + cityId + " not found");
-        }
+    public CityResponceDto getCityById(Integer cityId) {
+        
+    	CityResponceDto city = cityDao.getCityById(cityId);
+        
+    	Optional.ofNullable(city).orElseThrow(() -> new CityNotFoundException("City with ID " + cityId + " not found"));
+    	
         return city;
     }
 
@@ -43,22 +47,22 @@ public class CityServiceImpl implements CityService {
     @Override
     @Transactional
     public Integer updateCity(City city) {
-        // Check if the city exists before updating
-        City existing = cityDao.getCityById(city.getCityId());
-        if (existing == null) {
-            throw new CityNotFoundException("City with ID " + city.getCityId() + " not found for update");
-        }
+        
+        CityResponceDto existing = cityDao.getCityById(city.getCityId()); // Check if the city exists before updating
+        
+        Optional.ofNullable(existing).orElseThrow(() -> new CityNotFoundException("City with ID " + city.getCityId() + " not found for update"));
+        
         return cityDao.updateCity(city);
     }
 
     @Override
     @Transactional
     public boolean deleteCity(Integer cityId) {
-    	// Check if the City exists before deletion
-    	City existing = cityDao.getCityById(cityId);
-        if (existing == null) {
-            throw new CityNotFoundException("City with ID " + cityId + " not found for deletion");
-        }
+    	
+    	CityResponceDto existing = cityDao.getCityById(cityId); // Check if the City exists before deletion
+    	
+    	Optional.ofNullable(existing).orElseThrow(() -> new CityNotFoundException("City with ID " + cityId + " not found for deletion"));
+    	
         return cityDao.deleteCity(cityId);
     }
 }

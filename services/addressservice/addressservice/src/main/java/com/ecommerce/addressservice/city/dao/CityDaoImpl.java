@@ -4,35 +4,42 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ecommerce.addressservice.dto.CityResponceDto;
 import com.ecommerce.addressservice.entity.City;
 
+import lombok.AllArgsConstructor;
 
 
+@AllArgsConstructor
 @Repository
 public class CityDaoImpl implements CityDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    private final SessionFactory sessionFactory;
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();
     }
 
     @Override
-    public List<City> getCityList() {
-        return getSession().createQuery("FROM City", City.class).getResultList();
+    public List<CityResponceDto> getCityList() {
+        return getSession().createQuery("FROM City", CityResponceDto.class).getResultList();
     }
 
     @Override
-    public City getCityById(Integer cityId) {
-        return getSession().createQuery("FROM City WHERE cityId = :cityId", City.class)
+    public CityResponceDto getCityById(Integer cityId) {
+        return getSession().createQuery("FROM City WHERE cityId = :cityId", CityResponceDto.class)
                            .setParameter("cityId", cityId)
                            .uniqueResult();
     }
 
+    @Override
+    public City getCity(Integer cityId) {
+    	return getSession().get(City.class, cityId);
+    }
+    
     @Override
     public Integer saveCity(City city) {
         getSession().persist(city);

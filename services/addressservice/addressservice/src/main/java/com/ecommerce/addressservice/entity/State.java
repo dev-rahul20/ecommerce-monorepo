@@ -11,9 +11,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "mst_state")
 public class State {
@@ -36,46 +40,4 @@ public class State {
     @UpdateTimestamp
     private LocalDateTime lastUpdatedOn;
 
-	public Integer getStateId() {
-		return stateId;
-	}
-
-	public void setStateId(Integer stateId) {
-		this.stateId = stateId;
-	}
-
-	public String getStateName() {
-		return stateName;
-	}
-
-	public void setStateName(String stateName) {
-		this.stateName = stateName;
-	}
-
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
-	}
-
-	public LocalDateTime getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(LocalDateTime createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public LocalDateTime getLastUpdatedOn() {
-		return lastUpdatedOn;
-	}
-
-	public void setLastUpdatedOn(LocalDateTime lastUpdatedOn) {
-		this.lastUpdatedOn = lastUpdatedOn;
-	}
-    
-    
-    
 }

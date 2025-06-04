@@ -3,25 +3,18 @@ package com.ecommerce.addressservice.address.service;
 import java.util.List;
 
 import com.ecommerce.addressservice.dto.AddressRequestDto;
-import com.ecommerce.addressservice.entity.Address;
+import com.ecommerce.addressservice.dto.AddressResponceDto;
 
 public interface AddressService {
 
-	List<Address> getAllAddress();
+	List<AddressResponceDto> getAllAddress();
 	
-	Address getAddressByAddressId(Integer addressId);
-	
-	Address getAddressByUserId(Integer usersId);
-	
-	Address getAddressByAddressIdAndUserId(Integer addressId, Integer userId);
+	AddressResponceDto getByAddressId(Integer addressId);
 
 	Integer saveAddress(AddressRequestDto address);
 
-	Integer updateAddress(AddressRequestDto address);
+	Integer updateAddress(Integer addressId, AddressRequestDto address);
 
-	Boolean deleteAddress(Integer addressId, Integer userId);
-
-	
-	
+	Boolean deleteAddress(Integer addressId);
 	
 }

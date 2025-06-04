@@ -4,18 +4,20 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.addressservice.entity.State;
 
+import lombok.AllArgsConstructor;
+
 
 
 @Repository
+@AllArgsConstructor
 public class StateDaoImpl implements StateDao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    private final SessionFactory sessionFactory;
 
     private Session getSession() {
         return sessionFactory.getCurrentSession();

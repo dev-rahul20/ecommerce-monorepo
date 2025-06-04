@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ecommerce.addressservice.dto.AddressResponceDto;
 import com.ecommerce.addressservice.entity.Address;
 
 @Repository
@@ -20,33 +21,16 @@ public class AddressDaoImpl implements AddressDao {
     }
 	
 	@Override
-	public List<Address> getAllAddress() {
-		return getSession().createQuery("FROM Address", Address.class).getResultList();
+	public List<AddressResponceDto> getAllAddress() {
+		return getSession().createQuery("FROM Address", AddressResponceDto.class).getResultList();
 	}
 
 	@Override
-	public Address getAddressByAddressId(Integer addressId) {
+	public AddressResponceDto getByAddressId(Integer addressId) {
 		
-		 return getSession().createQuery("FROM Address WHERE addressId = :addressId", Address.class)
+		 return getSession().createQuery("FROM Address WHERE adrId = :addressId", AddressResponceDto.class)
                  			.setParameter("addressId", addressId)
                  			.uniqueResult();
-	}
-
-	@Override
-	public Address getAddressByUserId(Integer userId) {
-		
-		return getSession().createQuery("FROM Address WHERE userId = :userId", Address.class)
-     					   .setParameter("userId", userId)
-     					   .uniqueResult();
-	}
-	
-	@Override
-	public Address getAddressByAddressIdAndUserId(Integer addressId, Integer userId) {
-		
-		return getSession().createQuery("FROM Address WHERE addressId = :addressId, userId = :userId", Address.class)
-						   .setParameter("addressId", addressId)
-						   .setParameter("userId", userId)
-				   		   .uniqueResult();
 	}
 
 	@Override
@@ -62,13 +46,12 @@ public class AddressDaoImpl implements AddressDao {
 	}
 
 	@Override
-	public Boolean deleteAddress(Integer addressId, Integer userId) {
+	public Boolean deleteAddress(Integer addressId) {
 	    
-		String hql = "DELETE FROM Address WHERE addressId = :addressId AND userId = :userId";
+		String hql = "DELETE FROM Address WHERE adrId = :addressId";
 	    
 		int result = getSession().createMutationQuery(hql)
 	                    		 .setParameter("addressId", addressId)
-	                    		 .setParameter("userId", userId)
 	                    		 .executeUpdate();
 	    return result > 0;
 	}
