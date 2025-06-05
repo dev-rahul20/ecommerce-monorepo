@@ -19,7 +19,7 @@ public interface UserService {
 
 	Integer updateUser(@Valid @Positive Integer userId, @Valid UserResponseDto user);
 
-	void deleteUser(@NotNull @Positive Integer userId);
+	Boolean deleteUser(@NotNull @Positive Integer userId);
 
 
 }

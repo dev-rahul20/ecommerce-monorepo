@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(@NotNull @Positive Integer userId) {
+	public Boolean deleteUser(@NotNull @Positive Integer userId) {
 		Optional.ofNullable(dao.getByUserId(userId))
 				.orElseThrow(() -> new UserNotFoundException("User not found for deletion"));
 
