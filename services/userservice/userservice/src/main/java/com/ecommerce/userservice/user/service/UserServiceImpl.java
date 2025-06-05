@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.userservice.dto.UserRequestDto;
-import com.ecommerce.userservice.dto.UserResponceDto;
+import com.ecommerce.userservice.dto.UserResponseDto;
 import com.ecommerce.userservice.entity.User;
 import com.ecommerce.userservice.exception.UserNotFoundException;
 import com.ecommerce.userservice.exception.UserNotSaveException;
@@ -41,19 +41,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserResponceDto> getAllUsers() {
+	public List<UserResponseDto> getAllUsers() {
 		return dao.getAllUsers();
 	}
 
 	@Override
-	public UserResponceDto getByUserId(@NotNull @Positive Integer userId) {
-		UserResponceDto user = dao.getByUserId(userId);
+	public UserResponseDto getByUserId(@NotNull @Positive Integer userId) {
+		UserResponseDto user = dao.getByUserId(userId);
 		Optional.ofNullable(user).orElseThrow(() -> new UserNotFoundException("User not found"));
 		return user;
 	}
 
 	@Override
-	public Integer updateUser(@Valid @Positive Integer userId, @Valid UserResponceDto dto) {
+	public Integer updateUser(@Valid @Positive Integer userId, @Valid UserResponseDto dto) {
 
 		User user = modelMapper.map(dto, User.class);
 		user.setUserId(userId);

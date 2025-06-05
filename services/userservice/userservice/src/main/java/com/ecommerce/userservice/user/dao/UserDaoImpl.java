@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ecommerce.userservice.dto.UserResponceDto;
+import com.ecommerce.userservice.dto.UserResponseDto;
 import com.ecommerce.userservice.entity.User;
 
 import jakarta.validation.constraints.NotNull;
@@ -28,13 +28,13 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<UserResponceDto> getAllUsers() {
-		return getSession().createQuery("FROM User", UserResponceDto.class).getResultList();
+	public List<UserResponseDto> getAllUsers() {
+		return getSession().createQuery("FROM User", UserResponseDto.class).getResultList();
 	}
 
 	@Override
-	public UserResponceDto getByUserId(@NotNull @Positive Integer userId) {
-		return getSession().createQuery("FROM User WHERE userId = :userId", UserResponceDto.class)
+	public UserResponseDto getByUserId(@NotNull @Positive Integer userId) {
+		return getSession().createQuery("FROM User WHERE userId = :userId", UserResponseDto.class)
 				.setParameter("userId", userId).uniqueResult();
 	}
 

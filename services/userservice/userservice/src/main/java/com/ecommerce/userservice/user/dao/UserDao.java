@@ -2,7 +2,7 @@ package com.ecommerce.userservice.user.dao;
 
 import java.util.List;
 
-import com.ecommerce.userservice.dto.UserResponceDto;
+import com.ecommerce.userservice.dto.UserResponseDto;
 import com.ecommerce.userservice.entity.User;
 
 import jakarta.validation.constraints.NotNull;
@@ -12,9 +12,9 @@ public interface UserDao {
 
 	Integer createUser(User user);
 
-	List<UserResponceDto> getAllUsers();
+	List<UserResponseDto> getAllUsers();
 
-	UserResponceDto getByUserId(@NotNull @Positive Integer userId);
+	UserResponseDto getByUserId(@NotNull @Positive Integer userId);
 
 	Integer updateUser(User user);
 
