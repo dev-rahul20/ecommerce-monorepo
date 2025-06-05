@@ -44,13 +44,13 @@ public class AddressServiceImpl implements AddressService {
 	
 	private State validateAndGetState(Integer stateId) {
 		
-		return Optional.ofNullable(stateDao.getStateById(stateId))
+		return Optional.ofNullable(stateDao.getState(stateId))
 					   .orElseThrow(() -> new StateNotFoundException("State with Id: " + stateId + " not found"));
 	}
 	
 	private Country validateAndGetCountry(Integer countryId) {
 		
-		return Optional.ofNullable(countryDao.getCountryById(countryId))
+		return Optional.ofNullable(countryDao.getCountry(countryId))
 					   .orElseThrow(() -> new CountryNotFoundException("Country with Id: " + countryId + "not found"));
 	}
 	

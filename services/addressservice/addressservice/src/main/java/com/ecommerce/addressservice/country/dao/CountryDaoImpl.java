@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import com.ecommerce.addressservice.dto.CountryResponceDto;
 import com.ecommerce.addressservice.entity.Country;
 
 import lombok.AllArgsConstructor;
@@ -23,13 +24,13 @@ public class CountryDaoImpl implements CountryDao {
     }
 
     @Override
-    public List<Country> getCountryList() {
-        return getSession().createQuery("FROM Country", Country.class).getResultList();
+    public List<CountryResponceDto> getCountryList() {
+        return getSession().createQuery("FROM Country", CountryResponceDto.class).getResultList();
     }
 
     @Override
-    public Country getCountryById(Integer countryId) {
-        return getSession().createQuery("FROM Country WHERE countryId = :countryId", Country.class)
+    public CountryResponceDto getCountryById(Integer countryId) {
+        return getSession().createQuery("FROM Country WHERE countryId = :countryId", CountryResponceDto.class)
                            .setParameter("countryId", countryId)
                            .uniqueResult();
     }
@@ -47,12 +48,14 @@ public class CountryDaoImpl implements CountryDao {
     }
 
     @Override
-    public boolean deleteCountry(Integer countryId) {
-        Country country = getSession().get(Country.class, countryId);
-        if (country != null) {
-            getSession().remove(country);
-            return true;
-        }
-        return false;
+    public boolean deleteCountry(Country country) {
+      
+    	getSession().remove(country);
+        return true;
     }
+
+	@Override
+	public Country getCountry(Integer countryId) {
+		return getSession().get(Country.class, countryId);
+	}
 }

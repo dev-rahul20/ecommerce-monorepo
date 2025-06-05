@@ -2,19 +2,20 @@ package com.ecommerce.addressservice.country.service;
 
 import java.util.List;
 
-import com.ecommerce.addressservice.entity.Country;
+import com.ecommerce.addressservice.dto.CountryRequestDto;
+import com.ecommerce.addressservice.dto.CountryResponceDto;
 
 
 
 public interface CountryService {
 
-	List<Country> getCountryList();
+	List<CountryResponceDto> getCountryList();
 
-	Country getCountryById(Integer countryId);
+	CountryResponceDto getCountryById(Integer countryId);
 
-	Integer saveCountry(Country country);
+	Integer saveCountry(CountryRequestDto dto);
 
-	Integer updateCountry(Country country);
+	Integer updateCountry(Integer countryId, CountryRequestDto dto);
 
 	boolean deleteCountry(Integer countryId);
 

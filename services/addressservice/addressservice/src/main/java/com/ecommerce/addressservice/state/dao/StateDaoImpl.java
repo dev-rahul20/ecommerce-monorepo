@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import com.ecommerce.addressservice.dto.StateResponceDto;
 import com.ecommerce.addressservice.entity.State;
 
 import lombok.AllArgsConstructor;
@@ -24,13 +25,13 @@ public class StateDaoImpl implements StateDao {
     }
 
     @Override
-    public List<State> getStateList() {
-        return getSession().createQuery("FROM State", State.class).getResultList();
+    public List<StateResponceDto> getStateList() {
+        return getSession().createQuery("FROM State", StateResponceDto.class).getResultList();
     }
 
     @Override
-    public State getStateById(Integer stateId) {
-        return getSession().createQuery("FROM State WHERE stateId = :stateId", State.class)
+    public StateResponceDto getStateById(Integer stateId) {
+        return getSession().createQuery("FROM State WHERE stateId = :stateId", StateResponceDto.class)
                            .setParameter("stateId",stateId)
                            .uniqueResult();
     }
@@ -48,12 +49,14 @@ public class StateDaoImpl implements StateDao {
     }
 
     @Override
-    public boolean deleteState(Integer stateId) {
-        State state = getSession().get(State.class, stateId);
-        if (state != null) {
-            getSession().remove(state);
-            return true;
-        }
-        return false;
+    public boolean deleteState(State state) {
+         getSession().remove(state);
+         return true;
     }
+    
+    @Override
+    public State getState(Integer stateId) {
+    	return getSession().get(State.class, stateId);
+    }
+
 }

@@ -2,19 +2,20 @@ package com.ecommerce.addressservice.state.service;
 
 import java.util.List;
 
-import com.ecommerce.addressservice.entity.State;
+import com.ecommerce.addressservice.dto.StateRequestDto;
+import com.ecommerce.addressservice.dto.StateResponceDto;
 
 
 
 public interface StateService {
 
-	List<State> getStateList();
+	List<StateResponceDto> getStateList();
 
-	State getStateById(Integer stateId);
+	StateResponceDto getStateById(Integer stateId);
 
-	Integer saveState(State state);
+	Integer saveState(StateRequestDto dto);
 
-	Integer updateState(State state);
+	Integer updateState(Integer stateid, StateRequestDto dto);
 
 	boolean deleteState(Integer stateId);
 
