@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "hibernate.dialect",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.dialect'"
+  },
+  {
+    "name": "hibernate.hbm2ddl.auto",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.hbm2ddl.auto'"
+  },
+  {
+    "name": "hibernate.show_sql",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.show_sql'"
+  },
+  {
+    "name": "hibernate.format_sql",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.format_sql'"
+  },
+  {
+    "name": "hibernate.enable_lazy_load_no_trans",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.enable_lazy_load_no_trans'"
+  },
+  {
+    "name": "hibernate.packages_to_scan",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.packages_to_scan'"
+  }
+]}
