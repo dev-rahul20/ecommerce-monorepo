@@ -5,13 +5,11 @@ import com.ecommerce.addressservice.entity.City;
 import com.ecommerce.addressservice.entity.Country;
 import com.ecommerce.addressservice.entity.State;
 
-import lombok.Getter;
-import lombok.Setter;
-
 
 public class AddressResponceDto {
 
     private Integer adrId;
+    private Integer userId;
     private String adrStreet;
     private String adrArea;
     private String adrLandmark;

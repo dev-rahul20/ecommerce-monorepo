@@ -14,6 +14,9 @@ public class AddressRequestDto {
 
     private Integer adrId;
 
+    @NotNull
+    private Integer userId;
+    
     @NotBlank
     private String adrStreet;
 

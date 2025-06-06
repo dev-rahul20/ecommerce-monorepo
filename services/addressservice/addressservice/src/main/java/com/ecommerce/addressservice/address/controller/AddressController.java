@@ -32,33 +32,51 @@ public class AddressController {
 
     private final AddressService service;
 
-    @GetMapping
+    @GetMapping("get-all")
     public AddressResponse getAllAddress() {
         List<AddressResponceDto> list = service.getAllAddress();
         return new AddressResponse(true, HttpStatus.OK, "Successfully fetched data", list);
     }
 
-    @GetMapping("{addressId}")
+    @GetMapping("get-by-address-id/{addressId}")
     public AddressResponse getAddressyByAddressId(@PathVariable @NotNull @Positive Integer addressId) {
         AddressResponceDto address = service.getByAddressId(addressId); // should throw AddressNotFoundException if not found
         return new AddressResponse(true, HttpStatus.OK, "Address found", address);
     }
 
-    @PostMapping
+    @GetMapping("get-by-user-id/{userId}")
+    public AddressResponse getByUserId(@PathVariable @NotNull @Positive Integer userId) {
+        List<AddressResponceDto> addressList = service.getByUserId(userId); // should throw AddressNotFoundException if not found
+        return new AddressResponse(true, HttpStatus.OK, "Address found", addressList);
+    }
+    
+    @PostMapping("save")
     public AddressResponse saveAddress(@RequestBody @Valid AddressRequestDto address) {
-        Integer savedAddressId = service.saveAddress(address);
-        return new AddressResponse(true, HttpStatus.CREATED, "Address saved successfully", savedAddressId);
+        Integer savedAddressIds = service.saveAddress(address);
+        return new AddressResponse(true, HttpStatus.CREATED, "Address saved successfully", savedAddressIds);
+    }
+    
+    @PostMapping("save-all")
+    public AddressResponse saveAllAddress(@RequestBody @Valid List<AddressRequestDto> address) {
+        service.saveAllAddress(address);
+        return new AddressResponse(true, HttpStatus.CREATED, "Address saved successfully");
     }
 
-    @PutMapping("/{addressId}")
+    @PutMapping("update/{addressId}")
     public AddressResponse updateAddress(@PathVariable @Valid @Positive Integer addressId, @RequestBody @Valid AddressRequestDto address) {
         Integer updatedAddressId = service.updateAddress(addressId, address);
         return new AddressResponse(true, HttpStatus.OK, "Address updated successfully", updatedAddressId);
     }
 
-    @DeleteMapping("/{addressId}")
-    public AddressResponse deleteState(@PathVariable @NotNull @Positive Integer addressId, @PathVariable @NotNull @Positive Integer userId) {
+    @DeleteMapping("delete-by-address-id/{addressId}")
+    public AddressResponse deleteAddress(@PathVariable @NotNull @Positive Integer addressId) {
         service.deleteAddress(addressId); // should throw AddressNotFoundException if not found
+        return new AddressResponse(true, HttpStatus.OK, "Address deleted successfully", null);
+    }
+    
+    @DeleteMapping("delete-by-user-id/{userId}")
+    public AddressResponse deleteAddressByUserId(@PathVariable @NotNull @Positive Integer userId) {
+        service.deleteAddress(userId); // should throw AddressNotFoundException if not found
         return new AddressResponse(true, HttpStatus.OK, "Address deleted successfully", null);
     }
 }

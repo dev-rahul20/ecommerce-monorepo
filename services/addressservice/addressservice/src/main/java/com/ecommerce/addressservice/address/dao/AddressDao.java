@@ -10,6 +10,8 @@ public interface AddressDao {
 	List<AddressResponceDto> getAllAddress();
 	
 	AddressResponceDto getByAddressId(Integer addressId);
+	
+	List<AddressResponceDto> getByUserId(Integer userId);
 
 	Integer saveAddress(Address address);
 
@@ -17,4 +19,6 @@ public interface AddressDao {
 
 	Boolean deleteAddress(Integer addressId);
 
+	Boolean deleteAddressByUserId(Integer userId);
+	
 }

@@ -32,6 +32,15 @@ public class AddressDaoImpl implements AddressDao {
                  			.setParameter("addressId", addressId)
                  			.uniqueResult();
 	}
+	
+	@Override
+	public List<AddressResponceDto> getByUserId(Integer userId) {
+		
+		return getSession().createQuery("FROM Address WHERE userId = :userId", AddressResponceDto.class)
+						   .setParameter("userId", userId)
+						   .getResultList();
+	}
+
 
 	@Override
 	public Integer saveAddress(Address address) {
@@ -54,6 +63,18 @@ public class AddressDaoImpl implements AddressDao {
 	                    		 .setParameter("addressId", addressId)
 	                    		 .executeUpdate();
 	    return result > 0;
+	}
+
+	@Override
+	public Boolean deleteAddressByUserId(Integer userId) {
+		
+		String hql = "DELETE FROM Address WHERE userId = :userId";
+	    
+		int result = getSession().createMutationQuery(hql)
+	                    		 .setParameter("userId", userId)
+	                    		 .executeUpdate();
+	    return result > 0;
+		
 	}
 
 }

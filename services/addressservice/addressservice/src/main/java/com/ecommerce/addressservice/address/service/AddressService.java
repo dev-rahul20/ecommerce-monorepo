@@ -10,11 +10,15 @@ public interface AddressService {
 	List<AddressResponceDto> getAllAddress();
 	
 	AddressResponceDto getByAddressId(Integer addressId);
+	
+	List<AddressResponceDto> getByUserId(Integer userId);
 
-	Integer saveAddress(AddressRequestDto address);
-
+	Integer saveAddress(AddressRequestDto dtoList);
+	
+	void saveAllAddress(List<AddressRequestDto> dtoList);
+	
 	Integer updateAddress(Integer addressId, AddressRequestDto address);
 
 	Boolean deleteAddress(Integer addressId);
-	
+
 }

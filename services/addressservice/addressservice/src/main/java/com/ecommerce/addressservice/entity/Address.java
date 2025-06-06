@@ -27,6 +27,9 @@ public class Address {
     @Column(name = "adr_id")
     private Integer adrId;
     
+    @Column(name = "user_id")
+    private Integer userId;
+    
     @Column(name = "adr_street", length = 255)
     private String adrStreet;
 

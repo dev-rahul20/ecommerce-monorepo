@@ -85,20 +85,50 @@ public class AddressServiceImpl implements AddressService {
 	}
 	
 	@Override
+	public List<AddressResponceDto> getByUserId(Integer userId) {
+		
+		List<AddressResponceDto> address = addressDao.getByUserId(userId);
+		
+		Optional.ofNullable(address).orElseThrow(() -> new AddressNotFoundException("Address not found"));
+		
+		return address;
+	}
+	
+	@Override
 	@Transactional
 	public Integer saveAddress(AddressRequestDto dto) {
 		
 		Address address = modelMapper.map(dto, Address.class);
-		
+			
 		populateAddressRelations(address, dto);
-		
+			
 		Integer savedAddressId = addressDao.saveAddress(address);
-		
-		return Optional.ofNullable(savedAddressId)
-					   .filter(id -> id > 0)
-					   .orElseThrow(() -> new AddressNotSaveException("Error while saving address"));
+			
+		Optional.ofNullable(savedAddressId)
+				.filter(id -> id > 0)
+				.orElseThrow(() -> new AddressNotSaveException("Error while saving address"));
+	
+		return savedAddressId;
 	}
-
+	
+	@Override
+	@Transactional
+	public void saveAllAddress(List<AddressRequestDto> dtoList) {
+		
+		for(AddressRequestDto dto : dtoList) {
+			
+			Address address = modelMapper.map(dto, Address.class);
+			
+			populateAddressRelations(address, dto);
+			
+			Integer savedAddressId = addressDao.saveAddress(address);
+			
+			Optional.ofNullable(savedAddressId)
+					.filter(id -> id > 0)
+					.orElseThrow(() -> new AddressNotSaveException("Error while saving address"));
+		}
+	}
+	
 	@Override
 	@Transactional
 	public Integer updateAddress(Integer addressId, AddressRequestDto dto) {
@@ -126,6 +156,5 @@ public class AddressServiceImpl implements AddressService {
         return addressDao.deleteAddress(addressId);
 	}
 
-	
 	
 }
