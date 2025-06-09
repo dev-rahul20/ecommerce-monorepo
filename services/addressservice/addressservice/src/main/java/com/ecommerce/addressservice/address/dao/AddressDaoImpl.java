@@ -4,17 +4,18 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.addressservice.dto.AddressResponceDto;
 import com.ecommerce.addressservice.entity.Address;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Repository
 public class AddressDaoImpl implements AddressDao {
 	
-	@Autowired
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 	
     private Session getSession() {
         return sessionFactory.getCurrentSession();

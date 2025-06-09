@@ -22,17 +22,17 @@ import java.util.Map;
 public class AddressExceptionHandler {
 
 	@ExceptionHandler(AddressNotFoundException.class)
-    public ResponseEntity<AddressResponse> handleCityNotFound(AddressNotFoundException ex) {
+    public ResponseEntity<AddressResponse> handleAddressNotFound(AddressNotFoundException ex) {
         return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 
 	@ExceptionHandler(AddressNotSaveException.class)
-    public ResponseEntity<AddressResponse> handleCityNotFound(AddressNotSaveException ex) {
+    public ResponseEntity<AddressResponse> handleAddressNotSaveException(AddressNotSaveException ex) {
         return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 	
 	@ExceptionHandler(AddressNotUpdateException.class)
-    public ResponseEntity<AddressResponse> handleCityNotFound(AddressNotUpdateException ex) {
+    public ResponseEntity<AddressResponse> handleAddressNotUpdateException(AddressNotUpdateException ex) {
         return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 	
@@ -51,8 +51,6 @@ public class AddressExceptionHandler {
         return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
     
-    
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<AddressResponse> handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
