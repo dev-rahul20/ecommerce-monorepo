@@ -45,8 +45,8 @@ public class SubCategoryController {
 	
 	@PostMapping("save")
 	public SubCategoryResponce saveSubCategory(@RequestBody @Valid SubCategoryRequestDto dto) {
-		Integer savedParentCategoryId = service.saveSubCategory(dto);
-		return new SubCategoryResponce(true, HttpStatus.OK, "SubCategory saved Successfully", savedParentCategoryId);
+		Integer savedSubCategoryId = service.saveSubCategory(dto);
+		return new SubCategoryResponce(true, HttpStatus.OK, "SubCategory saved Successfully", savedSubCategoryId);
 	}
 	
 	@PutMapping("update/{subCategoryId}")

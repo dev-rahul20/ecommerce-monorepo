@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class SupplierResponseDto {
+    
     private Integer id;
     private String name;
     private String description;

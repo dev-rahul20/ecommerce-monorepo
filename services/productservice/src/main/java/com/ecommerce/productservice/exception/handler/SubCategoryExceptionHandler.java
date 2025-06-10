@@ -24,17 +24,17 @@ public class SubCategoryExceptionHandler {
     }
 	
 	@ExceptionHandler(SubCategoryNotSaveException.class)
-    public ResponseEntity<SubCategoryResponce> handleAddressNotSaveException(SubCategoryNotSaveException ex) {
+    public ResponseEntity<SubCategoryResponce> handleSubCategoryNotSaveException(SubCategoryNotSaveException ex) {
         return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 	
 	@ExceptionHandler(SubCategoryNotUpdateException.class)
-    public ResponseEntity<SubCategoryResponce> handleAddressNotUpdateException(SubCategoryNotUpdateException ex) {
+    public ResponseEntity<SubCategoryResponce> handleSubCategoryNotUpdateException(SubCategoryNotUpdateException ex) {
         return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 	
 	@ExceptionHandler(SubCategoryNotDeleteException.class)
-    public ResponseEntity<SubCategoryResponce> handleAddressNotDeleteException(SubCategoryNotDeleteException ex) {
+    public ResponseEntity<SubCategoryResponce> handleSubCategoryNotDeleteException(SubCategoryNotDeleteException ex) {
         return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 	

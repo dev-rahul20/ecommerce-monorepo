@@ -1,11 +1,12 @@
 package com.ecommerce.productservice.dto;
 
-import java.time.LocalDateTime;
+import lombok.*;
 
-import lombok.Getter;
+import java.time.LocalDateTime;
 
 @Getter
 public class BrandResponseDto {
+    
     private Integer id;
     private String name;
     private String description;
