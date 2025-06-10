@@ -13,9 +13,9 @@ public interface ProductService {
 	
 	Integer saveProduct(ProductRequestDto dto);
 
-	Integer updateProduct(ProductRequestDto dto);
+	Integer updateProduct(Integer productId, ProductRequestDto dto);
 
-	void deleteProductByProductId(Integer productId);
+	Boolean deleteProductByProductId(Integer productId);
 
 	
 

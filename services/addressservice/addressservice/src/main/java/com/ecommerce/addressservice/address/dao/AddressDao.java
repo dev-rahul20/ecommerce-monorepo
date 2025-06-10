@@ -9,7 +9,7 @@ public interface AddressDao {
 
 	List<AddressResponceDto> getAllAddress();
 	
-	AddressResponceDto getByAddressId(Integer addressId);
+	Address getByAddressId(Integer addressId);
 	
 	List<AddressResponceDto> getByUserId(Integer userId);
 
@@ -17,7 +17,7 @@ public interface AddressDao {
 
 	Integer updateAddress(Address address);
 
-	Boolean deleteAddress(Integer addressId);
+	Boolean deleteAddress(Address address);
 
 	Boolean deleteAddressByUserId(Integer userId);
 	

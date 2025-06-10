@@ -77,11 +77,11 @@ public class AddressServiceImpl implements AddressService {
 	@Transactional(readOnly = true)
 	public AddressResponceDto getByAddressId(Integer addressId) {
 		
-		AddressResponceDto address = addressDao.getByAddressId(addressId);
+		Address address = addressDao.getByAddressId(addressId);
 		
 		Optional.ofNullable(address).orElseThrow(() -> new AddressNotFoundException("Address not found"));
 		
-		return address;
+		return modelMapper.map(address, AddressResponceDto.class);
 	}
 	
 	@Override
@@ -133,6 +133,11 @@ public class AddressServiceImpl implements AddressService {
 	@Transactional
 	public Integer updateAddress(Integer addressId, AddressRequestDto dto) {
 		
+		Address existingAddress = addressDao.getByAddressId(addressId);
+		
+		Optional.ofNullable(existingAddress)
+				.orElseThrow(() -> new AddressNotFoundException("Address with id : "+addressId+" not found"));
+		
 		Address address = modelMapper.map(dto, Address.class);
 		
 		address.setAdrId(addressId);
@@ -150,10 +155,12 @@ public class AddressServiceImpl implements AddressService {
 	@Transactional
 	public Boolean deleteAddress(Integer addressId) {
 		
-		Optional.ofNullable(addressDao.getByAddressId(addressId))
-				.orElseThrow(() -> new AddressNotFoundException("Address not found for deletion"));
+		Address address = addressDao.getByAddressId(addressId);
 		
-        return addressDao.deleteAddress(addressId);
+		Optional.ofNullable(address)
+				.orElseThrow(() -> new AddressNotFoundException("Address with id : "+addressId+" not found for deletion"));
+		
+        return addressDao.deleteAddress(address);
 	}
 
 	

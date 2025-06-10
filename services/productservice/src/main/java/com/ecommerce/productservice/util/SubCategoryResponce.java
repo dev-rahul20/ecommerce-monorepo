@@ -3,12 +3,9 @@ package com.ecommerce.productservice.util;
 import org.springframework.http.HttpStatus;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
-public class ProductResponse {
+public class SubCategoryResponce {
 
 	private boolean success;
 	private HttpStatus status;

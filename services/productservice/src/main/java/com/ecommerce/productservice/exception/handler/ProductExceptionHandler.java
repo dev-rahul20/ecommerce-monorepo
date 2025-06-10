@@ -23,13 +23,13 @@ public class ProductExceptionHandler {
     }
 	
 	@ExceptionHandler(ProductNotSaveException.class)
-    public ResponseEntity<ProductResponse> handleAddressNotSaveException(ProductNotSaveException ex) {
-        return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    public ResponseEntity<ProductResponse> handleProductNotSaveException(ProductNotSaveException ex) {
+        return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 	
 	@ExceptionHandler(ProductNotUpdateException.class)
     public ResponseEntity<ProductResponse> handleAddressNotUpdateException(ProductNotUpdateException ex) {
-        return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
+        return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 	
     @ExceptionHandler(MethodArgumentNotValidException.class)

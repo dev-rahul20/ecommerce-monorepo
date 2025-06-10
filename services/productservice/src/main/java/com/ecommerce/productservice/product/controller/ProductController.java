@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import com.ecommerce.productservice.product.service.ProductService;
 import com.ecommerce.productservice.util.ProductResponse;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 
@@ -47,10 +49,10 @@ public class ProductController {
 		return new ProductResponse(true, HttpStatus.OK, "Product saved Successfully", savedProductId);
 	}
 	
-	@PostMapping("update")
-	public ProductResponse updateProduct(@RequestBody @Valid ProductRequestDto dto) {
-		Integer savedProductId = service.updateProduct(dto);
-		return new ProductResponse(true, HttpStatus.OK, "Product updated Successfully", savedProductId);
+	@PutMapping("update/{productId}")
+	public ProductResponse updateProduct(@PathVariable @Positive @NotNull Integer productId, @RequestBody @Valid ProductRequestDto dto) {
+		Integer updatedProductId = service.updateProduct(productId, dto);
+		return new ProductResponse(true, HttpStatus.OK, "Product updated Successfully", updatedProductId);
 	}
 	
 	@DeleteMapping("delete-by-product-id/{productId}")

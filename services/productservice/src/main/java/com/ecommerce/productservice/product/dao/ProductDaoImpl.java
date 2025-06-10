@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.productservice.dto.ProductResponseDto;
+import com.ecommerce.productservice.entity.Product;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,8 +27,26 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
-	public ProductResponseDto getProductByProductId(Integer productId) {
-		return getSession().get(ProductResponseDto.class, productId);					 
+	public Product getProductByProductId(Integer productId) {
+		return getSession().get(Product.class, productId);					 
+	}
+
+	@Override
+	public Integer saveProduct(Product product) {
+		getSession().persist(product);
+		return product.getId();
+	}
+
+	@Override
+	public Integer updateProduct(Product product) {
+		getSession().merge(product);
+		return product.getId();
+	}
+
+	@Override
+	public Boolean deleteProductByProductId(Product product) {
+		getSession().remove(product);
+		return true;
 	}
 
 	

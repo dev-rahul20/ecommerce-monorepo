@@ -129,6 +129,37 @@ LOCK TABLES `productimages` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `productreviews`
+--
+
+DROP TABLE IF EXISTS `productreviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `productreviews` (
+  `review_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `rating` tinyint DEFAULT NULL,
+  `review_text` text,
+  `review_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`review_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `productreviews_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
+  CONSTRAINT `productreviews_chk_1` CHECK ((`rating` between 1 and 5))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productreviews`
+--
+
+LOCK TABLES `productreviews` WRITE;
+/*!40000 ALTER TABLE `productreviews` DISABLE KEYS */;
+/*!40000 ALTER TABLE `productreviews` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `products`
 --
 
@@ -251,6 +282,33 @@ LOCK TABLES `suppliers` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `wishlist`
+--
+
+DROP TABLE IF EXISTS `wishlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `wishlist` (
+  `wishlist_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `added_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`wishlist_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+LOCK TABLES `wishlist` WRITE;
+/*!40000 ALTER TABLE `wishlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `wishlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping events for database 'ecom_product_db'
 --
 
@@ -267,4 +325,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-09 21:22:21
+-- Dump completed on 2025-06-10 19:19:19
