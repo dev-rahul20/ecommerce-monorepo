@@ -28,7 +28,7 @@ public class SupplierServiceImpl implements SupplierService {
 	private Supplier checkSupplierExistOrNot(Integer supplierId) {
 
 		return Optional.ofNullable(dao.getSupplierBySupplierId(supplierId))
-				.orElseThrow(() -> new SupplierNotFoundException("Supplier with id: " + supplierId + " not found"));
+					   .orElseThrow(() -> new SupplierNotFoundException("Supplier with id: " + supplierId + " not found"));
 	}
 
 	@Override
@@ -41,6 +41,7 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public SupplierResponseDto getSupplierById(Integer supplierId) {
+		
 		Supplier supplier = checkSupplierExistOrNot(supplierId);
 
 		return modelMapper.map(supplier, SupplierResponseDto.class);
@@ -48,6 +49,7 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public Integer saveSupplier(SupplierRequestDto dto) {
+		
 		Supplier supplier = modelMapper.map(dto, Supplier.class);
 		
 		Integer savedSupplierId = dao.saveSupplier(supplier);
@@ -59,12 +61,13 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public Integer updateSupplier(Integer supplierId, SupplierRequestDto dto) {
+		
 		checkSupplierExistOrNot(supplierId); 
 
-	    Supplier updatedSupplier = modelMapper.map(dto, Supplier.class);
-	    updatedSupplier.setId(supplierId); 
+	    Supplier supplier = modelMapper.map(dto, Supplier.class);
+	    supplier.setId(supplierId); 
 
-	    Integer updatedSupplierId = dao.updateSupplier(updatedSupplier);
+	    Integer updatedSupplierId = dao.updateSupplier(supplier);
 
 	    return Optional.ofNullable(updatedSupplierId)
 	                   .filter(id -> id < 0)
@@ -73,10 +76,13 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public Boolean deleteSupplier(Integer supplierId) {
-		 Supplier supplier =	checkSupplierExistOrNot(supplierId);
+		 
+		 Supplier supplier = checkSupplierExistOrNot(supplierId);
 			
-		  return dao.deleteSupplierBySupplierId(supplier);
+		 return dao.deleteSupplierBySupplierId(supplier);
 	}
+
+	
 
 
 }

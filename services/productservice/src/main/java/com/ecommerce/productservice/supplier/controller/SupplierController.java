@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.productservice.dto.SupplierRequestDto;
 import com.ecommerce.productservice.dto.SupplierResponseDto;
 import com.ecommerce.productservice.supplier.service.SupplierService;
 import com.ecommerce.productservice.util.SupplierResponce;
@@ -41,14 +42,14 @@ public class SupplierController {
 	}
 
 	@PostMapping("save")
-	public SupplierResponce saveSupplier(@RequestBody @Valid SupplierResponseDto dto) {
+	public SupplierResponce saveSupplier(@RequestBody @Valid SupplierRequestDto dto) {
 		Integer savedSupplierId = service.saveSupplier(dto);
 		return new SupplierResponce(true, HttpStatus.OK, "Supplier saved Successfully", savedSupplierId);
 	}
 
 	@PutMapping("update/{supplierId}")
 	public SupplierResponce updateSupplier(@PathVariable @Positive @NotNull Integer supplierId,
-			@RequestBody @Valid SupplierResponseDto dto) {
+			@RequestBody @Valid SupplierRequestDto dto) {
 		Integer updatedSupplierId = service.updateSupplier(supplierId, dto);
 		return new SupplierResponce(true, HttpStatus.OK, "Supplier updated Successfully", updatedSupplierId);
 	}
