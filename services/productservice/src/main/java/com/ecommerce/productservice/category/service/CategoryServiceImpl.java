@@ -62,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Integer savedCategoryId = dao.saveCategory(category);
 		
 		return Optional.ofNullable(savedCategoryId)
-					   .filter(id -> id < 0)
+					   .filter(id -> id > 0)
 					   .orElseThrow(() -> new CategoryNotSaveException("Category not saved"));
 	}
 
@@ -78,7 +78,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Integer updatedCategoryId = dao.updateCategory(category);
 		
 		return Optional.ofNullable(updatedCategoryId)
-					   .filter(id -> id < 0)
+					   .filter(id -> id > 0)
 					   .orElseThrow(() -> new CategoryNotUpdateException("Category not updated"));
 	}
 	

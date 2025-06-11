@@ -1,8 +1,7 @@
 package com.ecommerce.productservice.dto;
 
+import lombok.*;
 import java.time.LocalDateTime;
-
-import lombok.Getter;
 
 @Getter
 public class ProductSpecificationResponseDto {

@@ -58,7 +58,7 @@ public class ParentCategoryServiceImpl implements ParentCategoryService {
 		Integer savedParentCategoryId = dao.saveParentCategory(parentCategory);
 
 		return Optional.ofNullable(savedParentCategoryId)
-					   .filter(id -> id < 0)
+					   .filter(id -> id > 0)
 					   .orElseThrow(() -> new ParentCategoryNotSaveException("ParentCategory Not Saved"));
 	}
 	
@@ -74,7 +74,7 @@ public class ParentCategoryServiceImpl implements ParentCategoryService {
 		Integer updatedParentCategoryId = dao.updateParentCategory(parentCategory);
 		
 		return Optional.ofNullable(updatedParentCategoryId)
-					   .filter(id -> id < 0)
+					   .filter(id -> id > 0)
 					   .orElseThrow(() -> new ParentCategoryNotUpdateException("ParentCategory not updated"));
 	}
 

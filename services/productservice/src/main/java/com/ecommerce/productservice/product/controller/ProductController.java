@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.productservice.dto.CreateProductCompositeDto;
 import com.ecommerce.productservice.dto.ProductRequestDto;
 import com.ecommerce.productservice.dto.ProductResponseDto;
 import com.ecommerce.productservice.product.service.ProductService;
@@ -44,7 +45,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("save")
-	public ProductResponse saveProduct(@RequestBody @Valid ProductRequestDto dto) {
+	public ProductResponse saveProduct(@RequestBody @Valid CreateProductCompositeDto dto) {
 		Integer savedProductId = service.saveProduct(dto);
 		return new ProductResponse(true, HttpStatus.OK, "Product saved Successfully", savedProductId);
 	}

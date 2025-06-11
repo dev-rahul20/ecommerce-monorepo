@@ -1,10 +1,14 @@
 package com.ecommerce.productservice.dto;
 
-import lombok.Getter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 
 @Getter
 public class ProductSpecificationRequestDto {
-    private Integer productId;
+    
+	@NotBlank
     private String specKey;
+	
+	@NotBlank
     private String specValue;
 }

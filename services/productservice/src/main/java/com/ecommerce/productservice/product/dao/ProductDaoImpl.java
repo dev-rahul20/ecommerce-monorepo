@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ecommerce.productservice.dto.ProductResponseDto;
 import com.ecommerce.productservice.entity.Product;
+import com.ecommerce.productservice.entity.ProductImage;
+import com.ecommerce.productservice.entity.ProductSpecification;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,6 +40,18 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	@Override
+	public Integer saveProductImage(ProductImage productImage) {
+		getSession().persist(productImage);
+		return productImage.getId();
+	}
+	
+	@Override
+	public Integer saveProductSpecification(ProductSpecification specification) {
+		getSession().persist(specification);
+		return specification.getId();
+	}
+	
+	@Override
 	public Integer updateProduct(Product product) {
 		getSession().merge(product);
 		return product.getId();
@@ -48,6 +62,10 @@ public class ProductDaoImpl implements ProductDao {
 		getSession().remove(product);
 		return true;
 	}
+
+	
+
+
 
 	
 	

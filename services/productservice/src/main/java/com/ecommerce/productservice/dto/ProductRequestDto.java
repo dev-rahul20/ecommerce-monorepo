@@ -18,13 +18,12 @@ public class ProductRequestDto {
 	@NotNull
 	private BigDecimal price;
 	
-    // References to related entities identified by their IDs.
 	@NotNull
     private Integer subCategoryId;
 	
 	@NotNull
-    private Integer brandId;    // optional
+    private Integer brandId;    
 	
 	@NotNull
-    private Integer supplierId; // optional
+    private Integer supplierId;
 }

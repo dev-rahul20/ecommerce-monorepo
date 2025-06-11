@@ -55,7 +55,7 @@ public class SupplierServiceImpl implements SupplierService {
 		Integer savedSupplierId = dao.saveSupplier(supplier);
 		
 		return Optional.ofNullable(savedSupplierId)
-					   .filter(id -> id < 0)
+					   .filter(id -> id > 0)
 					   .orElseThrow(() -> new SupplierNotSaveException("Supplier not saved"));
 	}
 
@@ -70,7 +70,7 @@ public class SupplierServiceImpl implements SupplierService {
 	    Integer updatedSupplierId = dao.updateSupplier(supplier);
 
 	    return Optional.ofNullable(updatedSupplierId)
-	                   .filter(id -> id < 0)
+	                   .filter(id -> id > 0)
 	                   .orElseThrow(() -> new SupplierNotUpdateException("Supplier not updated"));
 	}
 

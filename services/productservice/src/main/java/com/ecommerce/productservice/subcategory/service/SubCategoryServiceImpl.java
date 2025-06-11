@@ -62,7 +62,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 		Integer savedSubCategoryId = dao.saveSubCategory(subCategory);
 		
 		return Optional.ofNullable(savedSubCategoryId)
-					   .filter(id -> id < 0)
+					   .filter(id -> id > 0)
 					   .orElseThrow(() -> new SubCategoryNotSaveException("SubCategory not saved"));
 	}
 	
@@ -79,7 +79,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 		Integer updatedSubCategoryId = dao.updateSubCategory(subCategory);
 		
 		return Optional.ofNullable(updatedSubCategoryId)
-				   	   .filter(id -> id < 0)
+				   	   .filter(id -> id > 0)
 				   	   .orElseThrow(() -> new SubCategoryNotUpdateException("SubCategory not updated"));
 	}
 	

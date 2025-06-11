@@ -52,7 +52,7 @@ public class BrandServiceImpl implements BrandService {
 		Integer savedBrandId = dao.saveBrand(brand);
 		
 		return Optional.ofNullable(savedBrandId)
-					   .filter(id -> id < 0)
+					   .filter(id -> id > 0)
 					   .orElseThrow(() -> new BrandNotSaveException("Brand not saved"));
 	}
 
@@ -66,7 +66,7 @@ public class BrandServiceImpl implements BrandService {
 	    Integer updatedBrandId = dao.updateBrand(updatedBrand);
 
 	    return Optional.ofNullable(updatedBrandId)
-	                   .filter(id -> id < 0)
+	                   .filter(id -> id > 0)
 	                   .orElseThrow(() -> new BrandNotUpdateException("Brand not updated"));
 	}
 

@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.ecommerce.productservice.dto.ProductResponseDto;
 import com.ecommerce.productservice.entity.Product;
+import com.ecommerce.productservice.entity.ProductImage;
+import com.ecommerce.productservice.entity.ProductSpecification;
 
 public interface ProductDao {
 
@@ -16,5 +18,9 @@ public interface ProductDao {
 	Integer updateProduct(Product product);
 
 	Boolean deleteProductByProductId(Product product);
+
+	Integer saveProductImage(ProductImage productImage);
+
+	Integer saveProductSpecification(ProductSpecification specification);
 
 }
