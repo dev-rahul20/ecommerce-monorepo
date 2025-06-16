@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.ecommerce.userservice.dto.UserResponseDto;
 import com.ecommerce.userservice.entity.User;
@@ -12,6 +13,7 @@ import com.ecommerce.userservice.entity.User;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+@Repository
 public class UserDaoImpl implements UserDao {
 
 	@Autowired
