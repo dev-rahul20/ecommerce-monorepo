@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.productservice.dto.SupplierRequestDto;
 import com.ecommerce.productservice.dto.SupplierResponseDto;
@@ -32,6 +33,7 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
+	@Transactional
 	public List<SupplierResponseDto> getAllSupplier() {
 
 		List<SupplierResponseDto> list = dao.getAllSupplier();
@@ -40,6 +42,7 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
+	@Transactional
 	public SupplierResponseDto getSupplierById(Integer supplierId) {
 		
 		Supplier supplier = checkSupplierExistOrNot(supplierId);
@@ -48,6 +51,7 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
+	@Transactional
 	public Integer saveSupplier(SupplierRequestDto dto) {
 		
 		Supplier supplier = modelMapper.map(dto, Supplier.class);
@@ -60,6 +64,7 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
+	@Transactional
 	public Integer updateSupplier(Integer supplierId, SupplierRequestDto dto) {
 		
 		checkSupplierExistOrNot(supplierId); 
@@ -75,6 +80,7 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
+	@Transactional
 	public Boolean deleteSupplier(Integer supplierId) {
 		 
 		 Supplier supplier = checkSupplierExistOrNot(supplierId);

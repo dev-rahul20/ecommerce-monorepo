@@ -30,15 +30,9 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
 	public SubCategory getSubCategoryById(Integer subCategoryId) {
 		return getSession().get(SubCategory.class, subCategoryId);
 	}
-
+	
 	@Override
-	public Integer saveSubCategory(SubCategory subCategory) {
-		getSession().persist(subCategory);
-		return subCategory.getId();
-	}
-
-	@Override
-	public Integer updateSubCategory(SubCategory subCategory) {
+	public Integer saveOrUpdateSubCategory(SubCategory subCategory) {
 		getSession().merge(subCategory);
 		return subCategory.getId();
 	}

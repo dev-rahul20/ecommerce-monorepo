@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.productservice.brand.dao.BrandDao;
 import com.ecommerce.productservice.dto.BrandRequestDto;
@@ -27,10 +28,11 @@ public class BrandServiceImpl implements BrandService {
 	private Brand checkBrandExistOrNot(Integer brandId) {
 
 		return Optional.ofNullable(dao.getBrandByBrandId(brandId))
-				.orElseThrow(() -> new BrandNotFoundException("Brand with id: " + brandId + " not found"));
+					   .orElseThrow(() -> new BrandNotFoundException("Brand with id: " + brandId + " not found"));
 	}
 
 	@Override
+	@Transactional
 	public List<BrandResponseDto> getAllBrands() {
 
 		List<BrandResponseDto> list = dao.getAllBrands();
@@ -39,6 +41,7 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@Transactional
 	public BrandResponseDto getBrandById(Integer brandId) {
 		Brand brand = checkBrandExistOrNot(brandId);
 
@@ -46,7 +49,9 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@Transactional
 	public Integer saveBrand(BrandRequestDto dto) {
+		
 		Brand brand = modelMapper.map(dto, Brand.class);
 		
 		Integer savedBrandId = dao.saveBrand(brand);
@@ -57,13 +62,15 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@Transactional
 	public Integer updateBrand(Integer brandId, BrandRequestDto dto) {
+		
 		checkBrandExistOrNot(brandId); 
 
-	    Brand updatedBrand = modelMapper.map(dto, Brand.class);
-	    updatedBrand.setId(brandId); 
+	    Brand brand = modelMapper.map(dto, Brand.class);
+	    brand.setId(brandId); 
 
-	    Integer updatedBrandId = dao.updateBrand(updatedBrand);
+	    Integer updatedBrandId = dao.updateBrand(brand);
 
 	    return Optional.ofNullable(updatedBrandId)
 	                   .filter(id -> id > 0)
@@ -71,10 +78,12 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	@Override
+	@Transactional
 	public Boolean deleteBrand(Integer brandId) {
+		
 		 Brand brand =	checkBrandExistOrNot(brandId);
 			
-		  return dao.deleteBrandByBrandId(brand);
+		 return dao.deleteBrandByBrandId(brand);
 	}
 
 }

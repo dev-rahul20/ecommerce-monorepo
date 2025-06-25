@@ -5,8 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "ProductImages")
 public class ProductImage {
@@ -23,6 +22,9 @@ public class ProductImage {
     @Column(name = "image_url", nullable = false, length = 512)
     private String imageUrl;
 
+    @Column(name = "s3_key", nullable = false, length = 512)
+    private String s3Key;
+    
     @Column(name = "sort_order")
     private Integer sortOrder = 0;
 

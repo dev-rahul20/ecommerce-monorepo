@@ -52,6 +52,12 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	@Override
+	public Integer updateProductSpecification(ProductSpecification specification) {	
+		getSession().merge(specification);
+		return specification.getId();
+	}
+	
+	@Override
 	public Integer updateProduct(Product product) {
 		getSession().merge(product);
 		return product.getId();
@@ -63,10 +69,27 @@ public class ProductDaoImpl implements ProductDao {
 		return true;
 	}
 
-	
+	@Override
+	public String getS3KeyByImageId(Integer imageId) {
+		
+		String hql = "Select img.s3Key FROM ProductImage AS img WHERE img.id =:imageId";
+		
+		return getSession().createQuery(hql, String.class).setParameter("imageId", imageId).uniqueResult();
+	}
+
+	@Override
+	public Integer deleteImageById(Integer imageId) {
+		
+		String hql = "DELETE FROM ProductImage AS img WHERE img.id =:imageId";
+		
+		return getSession().createMutationQuery(hql).setParameter("imageId", imageId).executeUpdate();
+	}
+
+	@Override
+	public ProductSpecification checkProductSpecificationExistOrNot(Integer productSpecId) {
+		return getSession().get(ProductSpecification.class, productSpecId);
+	}
 
 
-
-	
 	
 }

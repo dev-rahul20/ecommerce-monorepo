@@ -22,26 +22,24 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-	private final CategoryDao dao;
+	private final CategoryDao categoryDao;
 	private final ModelMapper modelMapper;
 	
 	private Category checkCategoryExistOrNot(Integer categoryId) {
 		
-		Category category = dao.getCategoryById(categoryId);
+		Category category = categoryDao.getCategoryById(categoryId);
 		
 		return Optional.ofNullable(category)
 					   .orElseThrow(() -> new CategoryNotFoundException("Category with id : "+categoryId+" not found"));
-		
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public List<CategoryResponseDto> getAllCategory(){
 		
-		List<CategoryResponseDto> list = dao.getAllCategory();
+		List<CategoryResponseDto> list = categoryDao.getAllCategory();
 		
 		return list == null ? Collections.emptyList() : list;
-		
 	}
 	
 	@Override
@@ -59,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		Category category = modelMapper.map(dto, Category.class);
 		
-		Integer savedCategoryId = dao.saveCategory(category);
+		Integer savedCategoryId = categoryDao.saveOrUpdateCategory(category);
 		
 		return Optional.ofNullable(savedCategoryId)
 					   .filter(id -> id > 0)
@@ -75,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Category category = modelMapper.map(dto, Category.class);
 		category.setId(categoryId);
 		
-		Integer updatedCategoryId = dao.updateCategory(category);
+		Integer updatedCategoryId = categoryDao.saveOrUpdateCategory(category);
 		
 		return Optional.ofNullable(updatedCategoryId)
 					   .filter(id -> id > 0)
@@ -88,7 +86,7 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		Category category = checkCategoryExistOrNot(categoryId);
 		
-		return dao.deleteCategory(category);
+		return categoryDao.deleteCategory(category);
 		
 	}
 	
