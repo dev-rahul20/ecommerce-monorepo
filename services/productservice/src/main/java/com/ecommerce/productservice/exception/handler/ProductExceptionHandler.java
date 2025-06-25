@@ -9,6 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.ecommerce.productservice.exception.ProductImageNotDeleteException;
+import com.ecommerce.productservice.exception.ProductImageNotFoundException;
 import com.ecommerce.productservice.exception.ProductImageNotSaveException;
 import com.ecommerce.productservice.exception.ProductImageNotUploadException;
 import com.ecommerce.productservice.exception.ProductNotFoundException;
@@ -31,17 +33,32 @@ public class ProductExceptionHandler {
     }
 	
 	@ExceptionHandler(ProductNotUpdateException.class)
-    public ResponseEntity<ProductResponse> handleAddressNotUpdateException(ProductNotUpdateException ex) {
+    public ResponseEntity<ProductResponse> handleProductNotUpdateException(ProductNotUpdateException ex) {
         return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 	
 	@ExceptionHandler(ProductSpecificationNotSaveException.class)
-    public ResponseEntity<ProductResponse> handleAddressNotUpdateException(ProductSpecificationNotSaveException ex) {
+    public ResponseEntity<ProductResponse> handleProductSpecificationNotSaveException(ProductSpecificationNotSaveException ex) {
+        return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
+    }
+	
+	@ExceptionHandler(ProductSpecificationNotUpdateException.class)
+    public ResponseEntity<ProductResponse> handleProductSpecificationNotUpdateException(ProductSpecificationNotUpdateException ex) {
         return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 	
 	@ExceptionHandler(ProductImageNotSaveException.class)
-    public ResponseEntity<ProductResponse> handleAddressNotUpdateException(ProductImageNotSaveException ex) {
+    public ResponseEntity<ProductResponse> handleProductImageNotSaveException(ProductImageNotSaveException ex) {
+        return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
+    }
+	
+	@ExceptionHandler(ProductImageNotFoundException.class)
+    public ResponseEntity<ProductResponse> handleProductImageNotFoundException(ProductImageNotFoundException ex) {
+        return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
+    }
+	
+	@ExceptionHandler(ProductImageNotDeleteException.class)
+    public ResponseEntity<ProductResponse> handleProductImageNotFoundException(ProductImageNotDeleteException ex) {
         return buildResponse(false, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
     }
 	

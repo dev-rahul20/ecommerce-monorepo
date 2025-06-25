@@ -23,4 +23,12 @@ public interface ProductDao {
 
 	Integer saveProductSpecification(ProductSpecification specification);
 
+	String getS3KeyByImageId(Integer id);
+
+	Integer deleteImageById(Integer id);
+
+	Integer updateProductSpecification(ProductSpecification specification);
+
+	ProductSpecification checkProductSpecificationExistOrNot(Integer productSpecId);
+
 }

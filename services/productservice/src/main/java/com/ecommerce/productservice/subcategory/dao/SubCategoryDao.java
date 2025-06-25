@@ -11,10 +11,8 @@ public interface SubCategoryDao {
 
 	SubCategory getSubCategoryById(Integer subCategoryId);
 
-	Integer saveSubCategory(SubCategory subCategory);
-
-	Integer updateSubCategory(SubCategory subCategory);
-
 	Boolean deleteSubCategory(SubCategory subCategory);
+
+	Integer saveOrUpdateSubCategory(SubCategory subCategory);
 	
 }

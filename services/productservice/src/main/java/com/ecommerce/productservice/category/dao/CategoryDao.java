@@ -11,10 +11,8 @@ public interface CategoryDao {
 
 	List<CategoryResponseDto> getAllCategory();
 
-	Integer saveCategory(Category category);
-
-	Integer updateCategory(Category category);
-
 	Boolean deleteCategory(Category category);
+
+	Integer saveOrUpdateCategory(Category category);
 
 }

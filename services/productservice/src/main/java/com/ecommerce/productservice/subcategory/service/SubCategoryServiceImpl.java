@@ -23,12 +23,12 @@ import lombok.AllArgsConstructor;
 public class SubCategoryServiceImpl implements SubCategoryService {
 
 	
-	private final SubCategoryDao dao;
+	private final SubCategoryDao suCategoryDao;
 	private final ModelMapper modelMapper;
 	
 	private SubCategory checkSubCategoryExistOrNot(Integer subCategoryId) {
 		
-		SubCategory subCategory = dao.getSubCategoryById(subCategoryId);
+		SubCategory subCategory = suCategoryDao.getSubCategoryById(subCategoryId);
 		
 		return Optional.ofNullable(subCategory)
 					   .orElseThrow(() -> new SubCategoryNotFoundException("SubCategory with id : "+subCategoryId+" not exist"));
@@ -39,7 +39,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	@Transactional(readOnly = true)
 	public List<SubCategoryResponseDto> getAllSubCategory() {
 		
-		 List<SubCategoryResponseDto> list = dao.getAllSubCategory();
+		List<SubCategoryResponseDto> list = suCategoryDao.getAllSubCategory();
 		
 		return list == null ? Collections.emptyList() : list;
 	}
@@ -59,13 +59,13 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 		
 		SubCategory subCategory = modelMapper.map(dto, SubCategory.class);
 	
-		Integer savedSubCategoryId = dao.saveSubCategory(subCategory);
+		Integer savedSubCategoryId = suCategoryDao.saveOrUpdateSubCategory(subCategory);
 		
 		return Optional.ofNullable(savedSubCategoryId)
 					   .filter(id -> id > 0)
 					   .orElseThrow(() -> new SubCategoryNotSaveException("SubCategory not saved"));
 	}
-	
+
 	@Override
 	@Transactional
 	public Integer updateSubCategory(Integer subCategoryId, SubCategoryRequestDto dto) {
@@ -76,7 +76,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 		
 		subCategory.setId(subCategoryId);
 		
-		Integer updatedSubCategoryId = dao.updateSubCategory(subCategory);
+		Integer updatedSubCategoryId = suCategoryDao.saveOrUpdateSubCategory(subCategory);
 		
 		return Optional.ofNullable(updatedSubCategoryId)
 				   	   .filter(id -> id > 0)
@@ -89,7 +89,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 		
 		SubCategory existingSubCategory = checkSubCategoryExistOrNot(subCategoryId);
 		
-		return dao.deleteSubCategory(existingSubCategory);
+		return suCategoryDao.deleteSubCategory(existingSubCategory);
 	}
 	
 	

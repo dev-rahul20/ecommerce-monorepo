@@ -8,6 +8,8 @@ import lombok.Getter;
 @Getter
 public class ProductImageRequestDto {
 	
+	private Integer id;
+	
 	@NotBlank
     private String imageAaBase64String;
 	

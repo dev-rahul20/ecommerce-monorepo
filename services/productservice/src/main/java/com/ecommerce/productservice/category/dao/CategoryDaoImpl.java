@@ -31,16 +31,11 @@ public class CategoryDaoImpl implements CategoryDao{
 		return getSession().get(Category.class, categoryId);
 	}
 
+	// We use common method for save or update. Because merge() is required to persist detached entity or nested entity.
 	@Override
-	public Integer saveCategory(Category category) {
-		getSession().persist(category);
-		return category.getId();
-	}
-
-	@Override
-	public Integer updateCategory(Category category) {
-		getSession().merge(category);
-		return category.getId();
+	public Integer saveOrUpdateCategory(Category category) {
+	    getSession().merge(category);
+	    return category.getId();
 	}
 
 	@Override

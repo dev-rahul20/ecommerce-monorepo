@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.productservice.dto.CreateProductCompositeDto;
-import com.ecommerce.productservice.dto.ProductRequestDto;
 import com.ecommerce.productservice.dto.ProductResponseDto;
 import com.ecommerce.productservice.product.service.ProductService;
 import com.ecommerce.productservice.util.ProductResponse;
@@ -47,12 +46,15 @@ public class ProductController {
 	@PostMapping("save")
 	public ProductResponse saveProduct(@RequestBody @Valid CreateProductCompositeDto dto) {
 		Integer savedProductId = service.saveProduct(dto);
-		return new ProductResponse(true, HttpStatus.OK, "Product saved Successfully", savedProductId);
+		return new ProductResponse(true, HttpStatus.CREATED, "Product saved Successfully", savedProductId);
 	}
 	
-	@PutMapping("update/{productId}")
-	public ProductResponse updateProduct(@PathVariable @Positive @NotNull Integer productId, @RequestBody @Valid ProductRequestDto dto) {
-		Integer updatedProductId = service.updateProduct(productId, dto);
+	@PutMapping("update/{productId}/{productSpecId}")
+	public ProductResponse updateProduct(@PathVariable @Positive @NotNull Integer productId, 
+										 @PathVariable @Positive @NotNull Integer productSpecId, 
+										 @RequestBody @Valid CreateProductCompositeDto dto) {
+		
+		Integer updatedProductId = service.updateProduct(productId, productSpecId, dto);
 		return new ProductResponse(true, HttpStatus.OK, "Product updated Successfully", updatedProductId);
 	}
 	
