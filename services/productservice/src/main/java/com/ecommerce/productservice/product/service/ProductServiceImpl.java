@@ -2,7 +2,6 @@ package com.ecommerce.productservice.product.service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.modelmapper.Converter;
@@ -32,6 +31,7 @@ import com.ecommerce.productservice.exception.ProductNotUpdateException;
 import com.ecommerce.productservice.exception.ProductSpecificationNotSaveException;
 import com.ecommerce.productservice.exception.handler.ProductSpecificationNotUpdateException;
 import com.ecommerce.productservice.product.dao.ProductDao;
+import com.ecommerce.productservice.product.util.ProductComparator;
 import com.ecommerce.productservice.subcategory.dao.SubCategoryDao;
 import com.ecommerce.productservice.supplier.dao.SupplierDao;
 
@@ -120,9 +120,7 @@ public class ProductServiceImpl implements ProductService {
 		specification.setId(productSpecId);
 		specification.setProduct(product);
 		
-		if(!Objects.equals(existingSpecification, specification)) {
-			
-			System.out.println("specification updated");
+		if(ProductComparator.isProductSpecModified(existingSpecification, specification)) {
 			
 			Integer updateProductSpecificationId = productDao.updateProductSpecification(specification);
 			
@@ -150,6 +148,7 @@ public class ProductServiceImpl implements ProductService {
 	    return modelMapper.map(product, ProductResponseDto.class);
 	}
 
+	//This method is used to map nested entities to prevent detached entities exception while saving into DB.
 	@PostConstruct
 	private void configureModelMapper() {
 	    modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -209,8 +208,8 @@ public class ProductServiceImpl implements ProductService {
 
 	    Integer updatedProductId = productId;
 	    
-	    if(!Objects.equals(existingProduct, product)) {
-	    	System.out.println("Product Updated");
+	    if(ProductComparator.isProductModified(existingProduct, product)) {
+
 	    	updatedProductId = Optional.ofNullable(productDao.updateProduct(product))
 					   				   .filter(id -> id > 0)
 					   				   .orElseThrow(() -> new ProductNotUpdateException("Product not updated"));
