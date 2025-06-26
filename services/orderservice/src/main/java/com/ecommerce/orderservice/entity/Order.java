@@ -1,7 +1,10 @@
 package com.ecommerce.orderservice.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -12,8 +15,13 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.ecommerce.orderservice.enums.OrderStatus;
+
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -26,8 +34,9 @@ public class Order {
     @Column(name = "user_id", nullable = false)
     private Integer userId;
 
-    @Column(name = "order_status", columnDefinition = "VARCHAR(20) DEFAULT 'SHIPPING'", nullable = false)
-    private String orderStatus = "PENDING"; // default set to PENDING
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", length = 20, nullable = false)
+    private OrderStatus orderStatus = OrderStatus.PENDING;    // default set to Pending
 
     // Even though we keep totals in a separate table, since your schema has a total_amount column in orders:
     @Column(name = "total_amount", precision = 10, scale = 2, nullable = false)
