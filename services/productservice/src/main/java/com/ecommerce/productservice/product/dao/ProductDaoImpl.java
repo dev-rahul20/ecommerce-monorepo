@@ -89,7 +89,26 @@ public class ProductDaoImpl implements ProductDao {
 	public ProductSpecification checkProductSpecificationExistOrNot(Integer productSpecId) {
 		return getSession().get(ProductSpecification.class, productSpecId);
 	}
-
-
 	
+	@Override
+	public List<ProductImage> getAllProductImagesByProductId(Integer productId) {
+	    String hql = "FROM ProductImage img WHERE img.product.id = :productId";
+	    return getSession().createQuery(hql, ProductImage.class)
+	                       .setParameter("productId", productId)
+	                       .getResultList();
+	}
+
+	@Override
+	public ProductSpecification checkProductSpecificationExistOrNotByProductId(Integer productId) {
+	    String hql = "FROM ProductSpecification spec WHERE spec.product.id = :productId";
+	    return getSession().createQuery(hql, ProductSpecification.class)
+	                       .setParameter("productId", productId)
+	                       .uniqueResult();
+	}
+
+	@Override
+	public void deleteProductSpecification(ProductSpecification spec) {
+	    getSession().remove(spec);
+	}
+
 }

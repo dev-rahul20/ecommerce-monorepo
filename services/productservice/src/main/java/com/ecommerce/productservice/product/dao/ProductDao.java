@@ -31,4 +31,10 @@ public interface ProductDao {
 
 	ProductSpecification checkProductSpecificationExistOrNot(Integer productSpecId);
 
+	List<ProductImage> getAllProductImagesByProductId(Integer productId);
+
+	ProductSpecification checkProductSpecificationExistOrNotByProductId(Integer productId);
+
+	void deleteProductSpecification(ProductSpecification spec);
+
 }

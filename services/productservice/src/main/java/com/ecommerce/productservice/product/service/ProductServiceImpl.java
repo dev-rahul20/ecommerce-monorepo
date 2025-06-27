@@ -228,11 +228,34 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public Boolean deleteProductByProductId(Integer productId) {
 
-		  Product product =	checkProductExistOrNot(productId); // Check product exists before deletion
+		Product product = checkProductExistOrNot(productId); // Check product exists before deletion
+
+		List<ProductImage> productImages = productDao.getAllProductImagesByProductId(productId);
+		for (ProductImage image : productImages) {
+			// Delete from AWS
+			DeleteObjectResponse response = s3Service.deleteImageFromAWS(image.getS3Key());
+			if (!response.sdkHttpResponse().isSuccessful()) {
+				throw new ProductImageNotDeleteException("Failed to delete image from S3: " + image.getS3Key());
+			}
+
+			// Delete from DB
+			int deleted = productDao.deleteImageById(image.getId());
+			if (deleted == 0) {
+				throw new ProductImageNotDeleteException("Failed to delete image record from DB: " + image.getId());
+			}
+		}
 		
-		  return productDao.deleteProductByProductId(product);	  
-	}	
+		// 2. Delete product specification
+	    ProductSpecification spec = productDao.checkProductSpecificationExistOrNotByProductId(productId);
+	    if (spec != null) {
+	        productDao.deleteProductSpecification(spec);
+	    }
+
+	    // 3. Delete product from DB
+	    return productDao.deleteProductByProductId(product);
+	}
 
 }
