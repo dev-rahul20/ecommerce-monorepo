@@ -12,7 +12,7 @@
 	<groupId>com.ecommerce</groupId>
 	<artifactId>authservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>auth-service</name>
 	<description>An authentication service is used to verify a user&apos;s
 		identity. It checks the provided credentials (like username and

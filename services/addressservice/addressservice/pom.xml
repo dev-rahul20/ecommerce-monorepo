@@ -12,7 +12,7 @@
 	<groupId>com.ecommerce</groupId>
 	<artifactId>addressservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>address-service</name>
 	<description>address-service is a Spring Boot–based microservice responsible
 		for managing address-related data within a distributed eCommerce

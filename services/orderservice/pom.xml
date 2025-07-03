@@ -12,7 +12,7 @@
 	<groupId>com.ecommerce</groupId>
 	<artifactId>orderservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>order-service</name>
 	<description>Order Service is a core backend component of an ecommerce
 		system responsible for managing customer orders across their lifecycle.

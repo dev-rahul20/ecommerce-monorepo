@@ -12,7 +12,7 @@
 	<groupId>com.ecommerce</groupId>
 	<artifactId>productservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>productservice</name>
 	<description>A Product Service in ecommerce is a standalone module
 		responsible for managing the entire product catalog, including product
