@@ -53,5 +53,15 @@
     "name": "spring.cloud.config.import-check.enabled",
     "type": "java.lang.String",
     "description": "A description for 'spring.cloud.config.import-check.enabled'"
+  },
+  {
+    "name": "feign.client.config.default.connectTimeout",
+    "type": "java.lang.String",
+    "description": "A description for 'feign.client.config.default.connectTimeout'"
+  },
+  {
+    "name": "feign.client.config.default.readTimeout",
+    "type": "java.lang.String",
+    "description": "A description for 'feign.client.config.default.readTimeout'"
   }
 ]}

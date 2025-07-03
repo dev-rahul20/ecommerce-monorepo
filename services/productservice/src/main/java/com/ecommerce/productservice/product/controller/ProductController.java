@@ -38,7 +38,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("get-by-product-id/{productId}")
-	public ProductResponse getProductByProductId(@PathVariable @Positive @Valid Integer productId) {
+	public ProductResponse getProductByProductId(@PathVariable @Positive @NotNull Integer productId) {
 		ProductResponseDto product = service.getProductByProductId(productId); // should throw ProductNotFoundException if not found
 		return new ProductResponse(true, HttpStatus.OK, "Successfully fetched data", product);
 	}
