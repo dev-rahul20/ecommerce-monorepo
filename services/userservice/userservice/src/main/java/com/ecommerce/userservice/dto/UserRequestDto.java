@@ -1,17 +1,10 @@
 package com.ecommerce.userservice.dto;
 
 
-import com.ecommerce.userservice.validation.OnCreateValidation;
-import com.ecommerce.userservice.validation.OnUpdateValidation;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -31,10 +24,6 @@ public class UserRequestDto {
     @NotNull
     @Positive
     private Integer userAge;
-
-    @NotNull
-    @Positive
-    private Integer adrId;
 
     @NotNull
     @Positive

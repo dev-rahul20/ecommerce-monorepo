@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.ecommerce.userservice.dto.UserResponseDto;
 import com.ecommerce.userservice.entity.User;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -35,9 +32,8 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public UserResponseDto getByUserId(@NotNull @Positive Integer userId) {
-		return getSession().createQuery("FROM User WHERE userId = :userId", UserResponseDto.class)
-				.setParameter("userId", userId).uniqueResult();
+	public User getByUserId(Integer userId) {
+		return getSession().get(User.class, userId);
 	}
 
 	@Override
@@ -47,7 +43,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Boolean deleteUser(@NotNull @Positive Integer userId) {
+	public Boolean deleteUser(Integer userId) {
 		String hql = "DELETE FROM User WHERE userId = :userId";
 
 		int result = getSession().createMutationQuery(hql).setParameter("userId", userId).executeUpdate();

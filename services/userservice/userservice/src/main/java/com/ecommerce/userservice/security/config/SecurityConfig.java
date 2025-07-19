@@ -33,7 +33,7 @@ public class SecurityConfig {
     	http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll() // Public APIs
-                .requestMatchers("/auth/**").permitAll() // Public APIs
+                .requestMatchers("/users/**").permitAll() // Public APIs
                 //.requestMatchers("/auth/**").permitAll() // Public APIs
                 .requestMatchers("/admin/**").hasRole("ADMIN") // Admin only
                 .anyRequest().authenticated() // All other APIs need JWT

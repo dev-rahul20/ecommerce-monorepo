@@ -11,6 +11,7 @@ import com.ecommerce.addressservice.exception.AddressNotUpdateException;
 import com.ecommerce.addressservice.exception.CityNotFoundException;
 import com.ecommerce.addressservice.exception.CountryNotFoundException;
 import com.ecommerce.addressservice.exception.StateNotFoundException;
+import com.ecommerce.addressservice.exception.UserNotFoundException;
 import com.ecommerce.addressservice.util.AddressResponse;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -48,6 +49,11 @@ public class AddressExceptionHandler {
     
     @ExceptionHandler(CityNotFoundException.class)
     public ResponseEntity<AddressResponse> handleCityNotFound(CityNotFoundException ex) {
+        return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
+    }
+    
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<AddressResponse> handleUserNotFound(UserNotFoundException ex) {
         return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
     
