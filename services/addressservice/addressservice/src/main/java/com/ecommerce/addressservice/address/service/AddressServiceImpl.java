@@ -11,7 +11,7 @@ import com.ecommerce.addressservice.address.dao.AddressDao;
 import com.ecommerce.addressservice.city.dao.CityDao;
 import com.ecommerce.addressservice.country.dao.CountryDao;
 import com.ecommerce.addressservice.dto.AddressRequestDto;
-import com.ecommerce.addressservice.dto.AddressResponceDto;
+import com.ecommerce.addressservice.dto.AddressResponseDto;
 import com.ecommerce.addressservice.entity.Address;
 import com.ecommerce.addressservice.entity.City;
 import com.ecommerce.addressservice.entity.Country;
@@ -22,8 +22,12 @@ import com.ecommerce.addressservice.exception.AddressNotUpdateException;
 import com.ecommerce.addressservice.exception.CityNotFoundException;
 import com.ecommerce.addressservice.exception.CountryNotFoundException;
 import com.ecommerce.addressservice.exception.StateNotFoundException;
+import com.ecommerce.addressservice.exception.UserNotFoundException;
+import com.ecommerce.addressservice.feign.UserClient;
 import com.ecommerce.addressservice.state.dao.StateDao;
+import com.ecommerce.addressservice.util.UserResponse;
 
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -31,6 +35,7 @@ import lombok.RequiredArgsConstructor;
 public class AddressServiceImpl implements AddressService {
 	
 	private final AddressDao addressDao;
+	private final UserClient userClient;
 	private final CityDao cityDao;
 	private final StateDao stateDao;
 	private final CountryDao countryDao;
@@ -69,27 +74,30 @@ public class AddressServiceImpl implements AddressService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<AddressResponceDto> getAllAddress() {
+	public List<AddressResponseDto> getAllAddress() {
 		return addressDao.getAllAddress();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public AddressResponceDto getByAddressId(Integer addressId) {
+	public AddressResponseDto getByAddressId(Integer addressId) {
 		
 		Address address = addressDao.getByAddressId(addressId);
 		
 		Optional.ofNullable(address).orElseThrow(() -> new AddressNotFoundException("Address not found"));
 		
-		return modelMapper.map(address, AddressResponceDto.class);
+		return modelMapper.map(address, AddressResponseDto.class);
 	}
 	
 	@Override
-	public List<AddressResponceDto> getByUserId(Integer userId) {
+	@Transactional(readOnly = true)
+	public List<AddressResponseDto> getByUserId(Integer userId) {
 		
-		List<AddressResponceDto> address = addressDao.getByUserId(userId);
+		List<AddressResponseDto> address = addressDao.getByUserId(userId);
 		
-		Optional.ofNullable(address).orElseThrow(() -> new AddressNotFoundException("Address not found"));
+		if (address == null || address.isEmpty()) {
+		    throw new AddressNotFoundException("No address found for user with ID: " + userId);
+		}
 		
 		return address;
 	}
@@ -98,10 +106,16 @@ public class AddressServiceImpl implements AddressService {
 	@Transactional
 	public Integer saveAddress(AddressRequestDto dto) {
 		
+		try {
+			userClient.getUserByUserId(dto.getUserId());
+		} catch (FeignException.NotFound e) {
+			throw new UserNotFoundException("User Not Found");
+		}
+		
 		Address address = modelMapper.map(dto, Address.class);
 			
 		populateAddressRelations(address, dto);
-			
+					
 		Integer savedAddressId = addressDao.saveAddress(address);
 			
 		Optional.ofNullable(savedAddressId)
@@ -116,6 +130,12 @@ public class AddressServiceImpl implements AddressService {
 	public void saveAllAddress(List<AddressRequestDto> dtoList) {
 		
 		for(AddressRequestDto dto : dtoList) {
+			
+			try {
+				userClient.getUserByUserId(dto.getUserId());
+			} catch (FeignException.NotFound e) {
+				throw new UserNotFoundException("User Not Found");
+			}
 			
 			Address address = modelMapper.map(dto, Address.class);
 			
@@ -161,6 +181,19 @@ public class AddressServiceImpl implements AddressService {
 				.orElseThrow(() -> new AddressNotFoundException("Address with id : "+addressId+" not found for deletion"));
 		
         return addressDao.deleteAddress(address);
+	}
+	
+	@Override
+	@Transactional
+	public Boolean deleteAddressByUserId(Integer userId) {
+		
+		try {
+			UserResponse user = userClient.getUserByUserId(userId);
+		} catch (FeignException.NotFound e) {
+			throw new UserNotFoundException("User Not Found");
+		}
+		
+        return addressDao.deleteAddressByUserId(userId);
 	}
 
 	

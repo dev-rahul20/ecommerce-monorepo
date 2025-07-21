@@ -2,6 +2,8 @@ package com.ecommerce.addressservice.dto;
 
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -10,6 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@JsonDeserialize
 public class AddressRequestDto {
 
     private Integer adrId;

@@ -3,15 +3,15 @@ package com.ecommerce.addressservice.address.service;
 import java.util.List;
 
 import com.ecommerce.addressservice.dto.AddressRequestDto;
-import com.ecommerce.addressservice.dto.AddressResponceDto;
+import com.ecommerce.addressservice.dto.AddressResponseDto;
 
 public interface AddressService {
 
-	List<AddressResponceDto> getAllAddress();
+	List<AddressResponseDto> getAllAddress();
 	
-	AddressResponceDto getByAddressId(Integer addressId);
+	AddressResponseDto getByAddressId(Integer addressId);
 	
-	List<AddressResponceDto> getByUserId(Integer userId);
+	List<AddressResponseDto> getByUserId(Integer userId);
 
 	Integer saveAddress(AddressRequestDto dtoList);
 	
@@ -20,5 +20,7 @@ public interface AddressService {
 	Integer updateAddress(Integer addressId, AddressRequestDto address);
 
 	Boolean deleteAddress(Integer addressId);
+
+	Boolean deleteAddressByUserId(Integer userId);
 
 }

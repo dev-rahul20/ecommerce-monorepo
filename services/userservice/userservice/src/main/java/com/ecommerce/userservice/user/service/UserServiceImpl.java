@@ -15,10 +15,6 @@ import com.ecommerce.userservice.exception.UserNotFoundException;
 import com.ecommerce.userservice.exception.UserNotSaveException;
 import com.ecommerce.userservice.user.dao.UserDao;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -41,19 +37,25 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public List<UserResponseDto> getAllUsers() {
 		return dao.getAllUsers();
 	}
 
 	@Override
-	public UserResponseDto getByUserId(@NotNull @Positive Integer userId) {
-		UserResponseDto user = dao.getByUserId(userId);
+	@Transactional(readOnly = true)
+	public UserResponseDto getByUserId(Integer userId) {
+		
+  		User user = dao.getByUserId(userId);
+		
 		Optional.ofNullable(user).orElseThrow(() -> new UserNotFoundException("User not found"));
-		return user;
+		
+		return modelMapper.map(user, UserResponseDto.class);
 	}
 
 	@Override
-	public Integer updateUser(@Valid @Positive Integer userId, @Valid UserResponseDto dto) {
+	@Transactional
+	public Integer updateUser(Integer userId, UserResponseDto dto) {
 
 		User user = modelMapper.map(dto, User.class);
 		user.setUserId(userId);
@@ -64,7 +66,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Boolean deleteUser(@NotNull @Positive Integer userId) {
+	@Transactional
+	public Boolean deleteUser(Integer userId) {
 		Optional.ofNullable(dao.getByUserId(userId))
 				.orElseThrow(() -> new UserNotFoundException("User not found for deletion"));
 

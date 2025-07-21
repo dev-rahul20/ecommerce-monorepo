@@ -6,7 +6,7 @@ import com.ecommerce.addressservice.entity.Country;
 import com.ecommerce.addressservice.entity.State;
 
 
-public class AddressResponceDto {
+public class AddressResponseDto {
 
     private Integer adrId;
     private Integer userId;

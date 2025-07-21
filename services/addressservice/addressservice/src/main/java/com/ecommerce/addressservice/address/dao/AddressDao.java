@@ -2,16 +2,16 @@ package com.ecommerce.addressservice.address.dao;
 
 import java.util.List;
 
-import com.ecommerce.addressservice.dto.AddressResponceDto;
+import com.ecommerce.addressservice.dto.AddressResponseDto;
 import com.ecommerce.addressservice.entity.Address;
 
 public interface AddressDao {
 
-	List<AddressResponceDto> getAllAddress();
+	List<AddressResponseDto> getAllAddress();
 	
 	Address getByAddressId(Integer addressId);
 	
-	List<AddressResponceDto> getByUserId(Integer userId);
+	List<AddressResponseDto> getByUserId(Integer userId);
 
 	Integer saveAddress(Address address);
 

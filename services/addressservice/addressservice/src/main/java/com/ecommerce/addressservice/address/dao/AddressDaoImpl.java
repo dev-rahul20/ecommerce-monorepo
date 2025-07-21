@@ -6,7 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
-import com.ecommerce.addressservice.dto.AddressResponceDto;
+import com.ecommerce.addressservice.dto.AddressResponseDto;
 import com.ecommerce.addressservice.entity.Address;
 
 import lombok.RequiredArgsConstructor;
@@ -22,8 +22,8 @@ public class AddressDaoImpl implements AddressDao {
     }
 	
 	@Override
-	public List<AddressResponceDto> getAllAddress() {
-		return getSession().createQuery("FROM Address", AddressResponceDto.class).getResultList();
+	public List<AddressResponseDto> getAllAddress() {
+		return getSession().createQuery("FROM Address", AddressResponseDto.class).getResultList();
 	}
 
 	@Override
@@ -32,9 +32,9 @@ public class AddressDaoImpl implements AddressDao {
 	}
 	
 	@Override
-	public List<AddressResponceDto> getByUserId(Integer userId) {
+	public List<AddressResponseDto> getByUserId(Integer userId) {
 		
-		return getSession().createQuery("FROM Address WHERE userId = :userId", AddressResponceDto.class)
+		return getSession().createQuery("FROM Address WHERE userId = :userId", AddressResponseDto.class)
 						   .setParameter("userId", userId)
 						   .getResultList();
 	}

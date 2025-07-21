@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.addressservice.address.service.AddressService;
 import com.ecommerce.addressservice.dto.AddressRequestDto;
-import com.ecommerce.addressservice.dto.AddressResponceDto;
+import com.ecommerce.addressservice.dto.AddressResponseDto;
 import com.ecommerce.addressservice.util.AddressResponse;
 
 import jakarta.validation.Valid;
@@ -32,21 +32,21 @@ public class AddressController {
 
     private final AddressService service;
 
-    @GetMapping("get-all")
+    @GetMapping
     public AddressResponse getAllAddress() {
-        List<AddressResponceDto> list = service.getAllAddress();
+        List<AddressResponseDto> list = service.getAllAddress();
         return new AddressResponse(true, HttpStatus.OK, "Successfully fetched data", list);
     }
 
-    @GetMapping("get-by-address-id/{addressId}")
-    public AddressResponse getAddressyByAddressId(@PathVariable @NotNull @Positive Integer addressId) {
-        AddressResponceDto address = service.getByAddressId(addressId); // should throw AddressNotFoundException if not found
-        return new AddressResponse(true, HttpStatus.OK, "Address found", address);
+    @GetMapping("/{addressId}")
+    public AddressResponse getAddressByAddressId(@PathVariable @NotNull @Positive Integer addressId) {
+        AddressResponseDto address = service.getByAddressId(addressId); // should throw AddressNotFoundException if not found
+        return new AddressResponse(true, HttpStatus.OK, "Successfully fetched address with ID: " + addressId, address);
     }
 
-    @GetMapping("get-by-user-id/{userId}")
+    @GetMapping("user/{userId}")
     public AddressResponse getByUserId(@PathVariable @NotNull @Positive Integer userId) {
-        List<AddressResponceDto> addressList = service.getByUserId(userId); // should throw AddressNotFoundException if not found
+        List<AddressResponseDto> addressList = service.getByUserId(userId); // should throw AddressNotFoundException if not found
         return new AddressResponse(true, HttpStatus.OK, "Address found", addressList);
     }
     
@@ -62,21 +62,21 @@ public class AddressController {
         return new AddressResponse(true, HttpStatus.CREATED, "Address saved successfully");
     }
 
-    @PutMapping("update/{addressId}")
+    @PutMapping("/{addressId}")
     public AddressResponse updateAddress(@PathVariable @Valid @Positive Integer addressId, @RequestBody @Valid AddressRequestDto address) {
         Integer updatedAddressId = service.updateAddress(addressId, address);
         return new AddressResponse(true, HttpStatus.OK, "Address updated successfully", updatedAddressId);
     }
 
-    @DeleteMapping("delete-by-address-id/{addressId}")
+    @DeleteMapping("/{addressId}")
     public AddressResponse deleteAddress(@PathVariable @NotNull @Positive Integer addressId) {
         service.deleteAddress(addressId); // should throw AddressNotFoundException if not found
         return new AddressResponse(true, HttpStatus.OK, "Address deleted successfully", null);
     }
     
-    @DeleteMapping("delete-by-user-id/{userId}")
+    @DeleteMapping("user/{userId}")
     public AddressResponse deleteAddressByUserId(@PathVariable @NotNull @Positive Integer userId) {
-        service.deleteAddress(userId); // should throw AddressNotFoundException if not found
+        service.deleteAddressByUserId(userId); // should throw AddressNotFoundException if not found
         return new AddressResponse(true, HttpStatus.OK, "Address deleted successfully", null);
     }
 }
