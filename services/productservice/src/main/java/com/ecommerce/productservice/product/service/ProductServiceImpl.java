@@ -1,6 +1,7 @@
 package com.ecommerce.productservice.product.service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ecommerce.productservice.brand.dao.BrandDao;
 import com.ecommerce.productservice.dto.CreateProductCompositeDto;
 import com.ecommerce.productservice.dto.ProductImageRequestDto;
+import com.ecommerce.productservice.dto.ProductImageResponseDto;
 import com.ecommerce.productservice.dto.ProductRequestDto;
 import com.ecommerce.productservice.dto.ProductResponseDto;
 import com.ecommerce.productservice.dto.ProductSpecificationRequestDto;
@@ -143,9 +145,30 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional(readOnly = true)
 	public ProductResponseDto getProductByProductId(Integer productId) {
 
-		Product product =	checkProductExistOrNot(productId);
+		Product product = checkProductExistOrNot(productId);
 
-	    return modelMapper.map(product, ProductResponseDto.class);
+		ProductResponseDto productResponceDto = modelMapper.map(product, ProductResponseDto.class);
+		
+		List<ProductImage> productImageList = productDao.getAllProductImagesByProductId(productId);
+		
+		productImageList.sort(Comparator.comparing(ProductImage::getSortOrder));
+		
+		List<ProductImageResponseDto> images = productImageList.stream().map(img -> {
+			
+			ProductImageResponseDto dto = new ProductImageResponseDto();
+			
+			dto.setId(img.getId());
+			dto.setProductId(img.getProduct().getId());
+			dto.setImageUrl(img.getImageUrl());
+			dto.setSortOrder(img.getSortOrder());
+			
+			return dto;
+			
+		}).toList();
+		
+		productResponceDto.setProductImages(images);
+		
+	    return productResponceDto;
 	}
 
 	//This method is used to map nested entities to prevent detached entities exception while saving into DB.

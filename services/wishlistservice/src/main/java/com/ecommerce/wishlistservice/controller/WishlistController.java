@@ -19,6 +19,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +28,14 @@ public class WishlistController {
 
     private final WishlistService service;
 
+    @GetMapping("/details/{userId}")
+    public Mono<WishlistResponce> getDetailedWishlist(@PathVariable @NotNull @Positive Integer userId) {
+        
+    	return service.getEnrichedWishlistByUser(userId)
+        			  .collectList() //Convert Flux -> Mono
+        			  .map(responce -> new WishlistResponce(true, HttpStatus.OK, "Detailed wishlist fetched Successfully!!", responce)); 
+    }
+    
     @PostMapping("/add")
     public WishlistResponce addItem(@RequestParam @NotNull @Positive Integer userId, @RequestParam @NotNull @Positive Integer productId) {
         WishlistItem item = service.addToWishlist(userId, productId);

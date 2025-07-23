@@ -8,5 +8,5 @@ public interface WishlistRepository extends CrudRepository<WishlistItem, String>
     
 	List<WishlistItem> findByUserId(Integer userId);
     boolean existsByUserIdAndProductId(Integer userId, Integer productId);
-    void deleteByUserIdAndProductId(String itemId);
+    void deleteById(String itemId);
 }
