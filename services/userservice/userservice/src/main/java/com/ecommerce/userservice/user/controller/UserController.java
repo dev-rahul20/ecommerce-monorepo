@@ -2,7 +2,6 @@ package com.ecommerce.userservice.user.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,24 +12,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ecommerce.userservice.dto.UserRequestDto;
+import com.ecommerce.userservice.dto.CreateUserCompositeDto;
 import com.ecommerce.userservice.dto.UserResponseDto;
 import com.ecommerce.userservice.user.service.UserService;
 import com.ecommerce.userservice.util.UserResponse;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("user")
+@RequiredArgsConstructor
 public class UserController {
 
-	@Autowired
-	private UserService service;
+	private final UserService service;
 
 	@PostMapping
-	public UserResponse createUser(@RequestBody @Valid UserRequestDto user) {
-		Integer craeteUserId = service.createUser(user);
+	public UserResponse createUser(@RequestBody @Valid CreateUserCompositeDto user) {
+		Long craeteUserId = service.createUser(user);
 		return new UserResponse(true, HttpStatus.CREATED, "User Created Successfully!!", craeteUserId);
 	}
 
@@ -41,19 +42,19 @@ public class UserController {
 	}
 	
 	@GetMapping("/{userId}")
-    public UserResponse getUserByUserId(@PathVariable @NotNull @Positive Integer userId) {
+    public UserResponse getUserByUserId(@PathVariable @NotNull @Positive Long userId) {
         UserResponseDto user = service.getByUserId(userId);
         return new UserResponse(true, HttpStatus.OK, "User found Successfully!!", user);
     }
 	
 	@PutMapping("/{userId}")
-    public UserResponse updateUser(@PathVariable @Valid @Positive Integer userId, @RequestBody @Valid UserResponseDto user) {
-        Integer updateUserId = service.updateUser(userId, user);
+    public UserResponse updateUser(@PathVariable @Valid @Positive Long userId, @RequestBody @Valid UserResponseDto user) {
+        Long updateUserId = service.updateUser(userId, user);
         return new UserResponse(true, HttpStatus.OK, "User Updated Successfully!!", updateUserId);
     }
 
     @DeleteMapping("/{userId}")
-    public UserResponse deleteUser(@PathVariable @NotNull @Positive Integer userId) {
+    public UserResponse deleteUser(@PathVariable @NotNull @Positive Long userId) {
         service.deleteUser(userId); 
         return new UserResponse(true, HttpStatus.OK, "User Deleted Successfully!!", null);
     }

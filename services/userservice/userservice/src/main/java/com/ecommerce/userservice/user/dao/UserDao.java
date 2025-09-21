@@ -7,14 +7,14 @@ import com.ecommerce.userservice.entity.User;
 
 public interface UserDao {
 
-	Integer createUser(User user);
+	Long createUser(User user);
 
 	List<UserResponseDto> getAllUsers();
 
-	User getByUserId(Integer userId);
+	User getByUserId(Long userId);
 
-	Integer updateUser(User user);
+	Long updateUser(User user);
 
-	Boolean deleteUser(Integer userId);
+	Boolean deleteUser(Long userId);
 
 }

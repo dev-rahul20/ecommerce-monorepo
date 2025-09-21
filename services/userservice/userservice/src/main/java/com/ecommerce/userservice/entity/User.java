@@ -1,12 +1,17 @@
 package com.ecommerce.userservice.entity;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.ecommerce.userservice.constants.AuthSyncStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +30,7 @@ public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
     
     @ManyToOne
     @JoinColumn(name = "gender_id", nullable = false)
@@ -47,6 +52,16 @@ public class User {
     @Column(name = "user_middle_name")
     private String userMiddleName;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "auth_sync_status", nullable = false)
+    private AuthSyncStatus authSyncStatus = AuthSyncStatus.NOT_STARTED;
+    
+    @Column(name = "auth_retry_count", nullable = false)
+    private Integer authRetryCount = 0;
+
+    @Column(name = "auth_last_attempt_at")
+    private Instant authLastAttemptAt;
+    
     @CreationTimestamp
     @Column(name = "created_on")
     private LocalDateTime createdOn;

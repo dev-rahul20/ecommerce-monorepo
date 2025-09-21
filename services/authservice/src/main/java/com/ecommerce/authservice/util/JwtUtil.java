@@ -1,4 +1,4 @@
-package com.ecommerce.userservice.security.util;
+package com.ecommerce.authservice.util;
 
 import java.util.Date;
 

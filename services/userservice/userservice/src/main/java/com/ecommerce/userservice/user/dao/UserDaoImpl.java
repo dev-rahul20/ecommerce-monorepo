@@ -21,32 +21,32 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Integer createUser(User user) {
+	public Long createUser(User user) {
 		getSession().persist(user);
 		return user.getUserId();
 	}
 
+	@Override
+	public Long updateUser(User user) {
+		getSession().merge(user);
+		return user.getUserId();
+	}
+	
 	@Override
 	public List<UserResponseDto> getAllUsers() {
 		return getSession().createQuery("FROM User", UserResponseDto.class).getResultList();
 	}
 
 	@Override
-	public User getByUserId(Integer userId) {
+	public User getByUserId(Long userId) {
 		return getSession().get(User.class, userId);
 	}
 
 	@Override
-	public Integer updateUser(User user) {
-		getSession().merge(user);
-		return user.getUserId();
-	}
-
-	@Override
-	public Boolean deleteUser(Integer userId) {
-		String hql = "DELETE FROM User WHERE userId = :userId";
-
-		int result = getSession().createMutationQuery(hql).setParameter("userId", userId).executeUpdate();
+	public Boolean deleteUser(Long userId) {
+		
+		int result = getSession().createMutationQuery("DELETE FROM User WHERE userId = :userId")
+								 .setParameter("userId", userId).executeUpdate();
 		return result > 0;
 	}
 

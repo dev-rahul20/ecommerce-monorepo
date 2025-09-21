@@ -31,7 +31,7 @@ public class InventoryController {
 	 * Get all inventory entries for a product across warehouses.
 	 */
 	@GetMapping("/products/{productId}")
-	public InventoryResponce getInventoryItems(@PathVariable Long productId) {
+	public InventoryResponce getInventoryItems(@PathVariable Integer productId) {
 		List<InventoryItemDto> items = service.getInventoryItems(productId);
 		return new InventoryResponce(true, HttpStatus.OK, "Inventory Items Fetched Successfully", items);
 	}
@@ -40,7 +40,7 @@ public class InventoryController {
 	 * Get total available quantity (onHand − reserved) for a product.
 	 */
 	@GetMapping("/products/{productId}/available")
-	public InventoryResponce getAvailableQuantity(@PathVariable Long productId) {
+	public InventoryResponce getAvailableQuantity(@PathVariable Integer productId) {
 		int available = service.getAvailableQuantity(productId);
 		return new InventoryResponce(true, HttpStatus.OK, "Available Product Quantity Fetched Successfully", available);
 	}
@@ -58,7 +58,7 @@ public class InventoryController {
 	 * Commit a pending reservation (moves reserved → onHand adjustment).
 	 */
 	@PostMapping("/reservations/{reservationId}/commit")
-	public InventoryResponce commitReservation(@PathVariable Long reservationId) {
+	public InventoryResponce commitReservation(@PathVariable Integer reservationId) {
 		service.commitReservation(reservationId);
 		return new InventoryResponce(true, HttpStatus.CREATED, "Pending Reservations Commit Successfully", null);
 	}
@@ -67,7 +67,7 @@ public class InventoryController {
 	 * Cancel a pending reservation (releases held stock).
 	 */
 	@PostMapping("/reservations/{reservationId}/cancel")
-	public InventoryResponce cancelReservation(@PathVariable Long reservationId) {
+	public InventoryResponce cancelReservation(@PathVariable Integer reservationId) {
 		service.cancelReservation(reservationId);
 		return new InventoryResponce(true, HttpStatus.CREATED, "Pending Reservations Canceled Successfully", null);
 	}

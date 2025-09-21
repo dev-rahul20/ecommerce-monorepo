@@ -19,17 +19,17 @@ import java.util.Map;
 public class UserExceptionHandler {
 
 	@ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<UserResponse> handleCityNotFound(UserNotFoundException ex) {
+    public ResponseEntity<UserResponse> handleUserNotFoundException(UserNotFoundException ex) {
         return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 
 	@ExceptionHandler(UserNotSaveException.class)
-    public ResponseEntity<UserResponse> handleCityNotFound(UserNotSaveException ex) {
+    public ResponseEntity<UserResponse> handleUserNotSaveException(UserNotSaveException ex) {
         return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
 	
 	@ExceptionHandler(UserNotUpdateException.class)
-    public ResponseEntity<UserResponse> handleCityNotFound(UserNotUpdateException ex) {
+    public ResponseEntity<UserResponse> handleUserNotUpdateException(UserNotUpdateException ex) {
         return buildResponse(false, HttpStatus.NOT_FOUND, ex.getMessage(), null);
     }
   

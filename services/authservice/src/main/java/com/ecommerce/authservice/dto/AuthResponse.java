@@ -1,4 +1,4 @@
-package com.ecommerce.userservice.dto;
+package com.ecommerce.authservice.dto;
 
 import org.springframework.http.HttpStatus;
 
