@@ -44,6 +44,13 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- JWT auth layer: every endpoint needs a valid token (see ecommerce.security.public-paths) -->
+		<dependency>
+			<groupId>com.ecommerce</groupId>
+			<artifactId>ecommerce-security-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<!-- Spring ORM (provides @EnableTransactionManagement,
 		HibernateTransactionManager, etc.) -->
 		<dependency>
@@ -78,7 +85,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.28</version><!--$NO-MVN-MAN-VER$-->  <!-- Use the latest stable version -->
+			<version>1.18.34</version><!--$NO-MVN-MAN-VER$-->  <!-- Use the latest stable version -->
 			<scope>provided</scope>
 		</dependency>
 
@@ -110,11 +117,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
 		<dependency>
