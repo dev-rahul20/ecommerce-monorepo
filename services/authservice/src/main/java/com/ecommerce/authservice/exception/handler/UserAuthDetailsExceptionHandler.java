@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.ecommerce.authservice.dto.AuthResponse;
+import com.ecommerce.authservice.exception.InvalidCredentialsException;
 import com.ecommerce.authservice.exception.UserAuthDetailsNotSaveException;
 import com.ecommerce.authservice.exception.UserAuthDetailsNotUpdateException;
 
@@ -34,6 +35,16 @@ public class UserAuthDetailsExceptionHandler {
                 errors.put(err.getField(), err.getDefaultMessage())
         );
         return buildResponse(false, HttpStatus.BAD_REQUEST, "Validation Failed", errors);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<AuthResponse> handleInvalidCredentials(InvalidCredentialsException ex) {
+        return buildResponse(false, HttpStatus.UNAUTHORIZED, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public void rethrowAccessDenied(org.springframework.security.access.AccessDeniedException ex) {
+        throw ex;
     }
 
     @ExceptionHandler(Exception.class)

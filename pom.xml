@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Build-only aggregator: `mvn install` from the repo root builds the shared
+	security library first, then every service that depends on it. -->
+	<groupId>com.ecommerce</groupId>
+	<artifactId>ecommerce-monorepo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>services/ecommerce-security-common</module>
+		<module>services/ecommerce-eureka-server</module>
+		<module>services/ecommerce-config-server</module>
+		<module>services/ecommerce-gateway</module>
+		<module>services/authservice</module>
+		<module>services/userservice/userservice</module>
+		<module>services/addressservice/addressservice</module>
+		<module>services/productservice</module>
+		<module>services/cartservice</module>
+		<module>services/orderservice</module>
+		<module>services/wishlistservice</module>
+		<module>services/inventoryservice</module>
+		<module>services/notificationservice</module>
+	</modules>
+</project>

@@ -1,0 +1,20 @@
+name: build
+
+on:
+  push:
+    branches: [main, developer]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      # The generated *ApplicationTests need live databases, Eureka and Config Server, so they are skipped here.
+      - name: Build all services and run unit tests
+        run: mvn -B install -Dtest='!*ApplicationTests' -Dsurefire.failIfNoSpecifiedTests=false

@@ -9,6 +9,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ecommerce.security.relay.JwtRelayExchangeFilterFunction;
+
 @Configuration
 public class BeanConfiguration {
 
@@ -29,8 +31,9 @@ public class BeanConfiguration {
     }
     
     @Bean
-    WebClient.Builder webClientBuilder(){
-    	return WebClient.builder();
+    WebClient.Builder webClientBuilder(JwtRelayExchangeFilterFunction jwtRelay) {
+		// Forwards the caller's JWT (or a service token) to the services we call
+		return WebClient.builder().filter(jwtRelay);
     }
     
     
